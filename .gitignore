@@ -46,3 +46,4 @@ log/*
 config/runtime.json
 config/development.json
 .queues
+.npmrc

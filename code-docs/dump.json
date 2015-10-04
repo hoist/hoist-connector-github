@@ -3,332 +3,27 @@
     "kind": "file",
     "static": true,
     "variation": null,
-    "name": "src/authorisation_store.js",
+    "name": "src/connector.js",
     "memberof": null,
-    "longname": "src/authorisation_store.js",
-    "access": null,
-    "description": null,
-    "lineNumber": 4,
-    "content": "/**\n * @interface\n */\nexport default class AuthorizationStore {\n\n  /**\n   * the query params the user is currently showing\n   * @type {object}\n   */\n  get query() {};\n  /**\n   * sets and saves a value against the store\n   * @param {string} key - the key to store the value against\n   * @param {object} value - the value to store\n   * @returns {Promise} - a promise to have saved the value\n   */\n  set(key, value) {\n\n  }\n\n  /**\n   * gets a value saved against the specified key\n   *\n   * @param {string} key - the key the value is saved against\n   * @returns {object} - the value at the specified key or null\n   */\n  get(key) {\n\n  }\n\n  /**\n   * removes any value saved against the specified key permanently\n   * @param {string} key - the key the value is saved against\n   * @returns {Promise} - a promise to have deleted the value from the store\n   */\n  delete(key) {\n\n  }\n\n  /**\n   * mark the current authorization flow as complete i.e. after having swapped all access tokens and request tokens\n   * @returns {undefined}\n   */\n  done() {\n\n  }\n\n\n  /**\n   * redirect the user to the specified uri\n   * the user is no longer present after this call so should only happen at the end of a flow\n   * @param {string} uri - the uri to redirect the user to\n   * @returns {undefined}\n   */\n  redirect(uri) {\n\n  }\n\n\n}\n"
-  },
-  {
-    "kind": "class",
-    "static": true,
-    "variation": null,
-    "name": "AuthorizationStore",
-    "memberof": "src/authorisation_store.js",
-    "longname": "src/authorisation_store.js~AuthorizationStore",
-    "access": null,
-    "export": true,
-    "importPath": "hoist-connector-github/src/authorisation_store.js",
-    "importStyle": "AuthorizationStore",
-    "description": null,
-    "lineNumber": 4,
-    "interface": true
-  },
-  {
-    "kind": "get",
-    "static": false,
-    "variation": null,
-    "name": "query",
-    "memberof": "src/authorisation_store.js~AuthorizationStore",
-    "longname": "src/authorisation_store.js~AuthorizationStore#query",
-    "access": null,
-    "description": "the query params the user is currently showing",
-    "lineNumber": 10,
-    "type": {
-      "nullable": null,
-      "types": [
-        "object"
-      ],
-      "spread": false,
-      "description": null
-    },
-    "generator": false
-  },
-  {
-    "kind": "method",
-    "static": false,
-    "variation": null,
-    "name": "set",
-    "memberof": "src/authorisation_store.js~AuthorizationStore",
-    "longname": "src/authorisation_store.js~AuthorizationStore#set",
-    "access": null,
-    "description": "sets and saves a value against the store",
-    "lineNumber": 17,
-    "unknown": [
-      {
-        "tagName": "@returns",
-        "tagValue": "{Promise} - a promise to have saved the value"
-      }
-    ],
-    "params": [
-      {
-        "nullable": null,
-        "types": [
-          "string"
-        ],
-        "spread": false,
-        "optional": false,
-        "name": "key",
-        "description": "the key to store the value against"
-      },
-      {
-        "nullable": null,
-        "types": [
-          "object"
-        ],
-        "spread": false,
-        "optional": false,
-        "name": "value",
-        "description": "the value to store"
-      }
-    ],
-    "return": {
-      "nullable": null,
-      "types": [
-        "Promise"
-      ],
-      "spread": false,
-      "description": "a promise to have saved the value"
-    },
-    "generator": false
-  },
-  {
-    "kind": "method",
-    "static": false,
-    "variation": null,
-    "name": "get",
-    "memberof": "src/authorisation_store.js~AuthorizationStore",
-    "longname": "src/authorisation_store.js~AuthorizationStore#get",
-    "access": null,
-    "description": "gets a value saved against the specified key",
-    "lineNumber": 27,
-    "unknown": [
-      {
-        "tagName": "@returns",
-        "tagValue": "{object} - the value at the specified key or null"
-      }
-    ],
-    "params": [
-      {
-        "nullable": null,
-        "types": [
-          "string"
-        ],
-        "spread": false,
-        "optional": false,
-        "name": "key",
-        "description": "the key the value is saved against"
-      }
-    ],
-    "return": {
-      "nullable": null,
-      "types": [
-        "object"
-      ],
-      "spread": false,
-      "description": "the value at the specified key or null"
-    },
-    "generator": false
-  },
-  {
-    "kind": "method",
-    "static": false,
-    "variation": null,
-    "name": "delete",
-    "memberof": "src/authorisation_store.js~AuthorizationStore",
-    "longname": "src/authorisation_store.js~AuthorizationStore#delete",
-    "access": null,
-    "description": "removes any value saved against the specified key permanently",
-    "lineNumber": 36,
-    "unknown": [
-      {
-        "tagName": "@returns",
-        "tagValue": "{Promise} - a promise to have deleted the value from the store"
-      }
-    ],
-    "params": [
-      {
-        "nullable": null,
-        "types": [
-          "string"
-        ],
-        "spread": false,
-        "optional": false,
-        "name": "key",
-        "description": "the key the value is saved against"
-      }
-    ],
-    "return": {
-      "nullable": null,
-      "types": [
-        "Promise"
-      ],
-      "spread": false,
-      "description": "a promise to have deleted the value from the store"
-    },
-    "generator": false
-  },
-  {
-    "kind": "method",
-    "static": false,
-    "variation": null,
-    "name": "done",
-    "memberof": "src/authorisation_store.js~AuthorizationStore",
-    "longname": "src/authorisation_store.js~AuthorizationStore#done",
-    "access": null,
-    "description": "mark the current authorization flow as complete i.e. after having swapped all access tokens and request tokens",
-    "lineNumber": 44,
-    "unknown": [
-      {
-        "tagName": "@returns",
-        "tagValue": "{undefined}"
-      }
-    ],
-    "params": [],
-    "return": {
-      "nullable": null,
-      "types": [
-        "undefined"
-      ],
-      "spread": false,
-      "description": ""
-    },
-    "generator": false
-  },
-  {
-    "kind": "method",
-    "static": false,
-    "variation": null,
-    "name": "redirect",
-    "memberof": "src/authorisation_store.js~AuthorizationStore",
-    "longname": "src/authorisation_store.js~AuthorizationStore#redirect",
-    "access": null,
-    "description": "redirect the user to the specified uri\nthe user is no longer present after this call so should only happen at the end of a flow",
-    "lineNumber": 55,
-    "unknown": [
-      {
-        "tagName": "@returns",
-        "tagValue": "{undefined}"
-      }
-    ],
-    "params": [
-      {
-        "nullable": null,
-        "types": [
-          "string"
-        ],
-        "spread": false,
-        "optional": false,
-        "name": "uri",
-        "description": "the uri to redirect the user to"
-      }
-    ],
-    "return": {
-      "nullable": null,
-      "types": [
-        "undefined"
-      ],
-      "spread": false,
-      "description": ""
-    },
-    "generator": false
-  },
-  {
-    "kind": "file",
-    "static": true,
-    "variation": null,
-    "name": "src/connector_interface.js",
-    "memberof": null,
-    "longname": "src/connector_interface.js",
+    "longname": "src/connector.js",
     "access": null,
     "description": null,
     "lineNumber": 1,
-    "content": "'use strict';\n\n/**\n * @interface\n */\nexport default class ConnectorInterface {\n\n  /*\n   * initialize this connector with existing authorization information\n   * @param {<AuthorizationStore>} authorization - the users authorization\n   */\n  authorize(authorization) {\n\n  }\n\n  /*\n   * control a user through the authorization flow\n   * @param {AuthorizationStore} authorization - the users authorization\n   */\n  recieveBounce(authorization) {\n\n  }\n}\n"
-  },
-  {
-    "kind": "class",
-    "static": true,
-    "variation": null,
-    "name": "ConnectorInterface",
-    "memberof": "src/connector_interface.js",
-    "longname": "src/connector_interface.js~ConnectorInterface",
-    "access": null,
-    "export": true,
-    "importPath": "hoist-connector-github/src/connector_interface.js",
-    "importStyle": "ConnectorInterface",
-    "description": null,
-    "lineNumber": 6,
-    "interface": true
-  },
-  {
-    "kind": "method",
-    "static": false,
-    "variation": null,
-    "name": "authorize",
-    "memberof": "src/connector_interface.js~ConnectorInterface",
-    "longname": "src/connector_interface.js~ConnectorInterface#authorize",
-    "access": null,
-    "description": null,
-    "lineNumber": 12,
-    "undocument": true,
-    "params": [
-      {
-        "name": "authorization",
-        "types": [
-          "*"
-        ]
-      }
-    ],
-    "generator": false
-  },
-  {
-    "kind": "method",
-    "static": false,
-    "variation": null,
-    "name": "recieveBounce",
-    "memberof": "src/connector_interface.js~ConnectorInterface",
-    "longname": "src/connector_interface.js~ConnectorInterface#recieveBounce",
-    "access": null,
-    "description": null,
-    "lineNumber": 20,
-    "undocument": true,
-    "params": [
-      {
-        "name": "authorization",
-        "types": [
-          "*"
-        ]
-      }
-    ],
-    "generator": false
-  },
-  {
-    "kind": "file",
-    "static": true,
-    "variation": null,
-    "name": "src/github_connector.js",
-    "memberof": null,
-    "longname": "src/github_connector.js",
-    "access": null,
-    "description": null,
-    "lineNumber": 1,
-    "content": "import OAuth2Connector from './oauth2_connector';\nimport {\n  merge\n}\nfrom 'lodash';\n\nlet overrides = {\n  baseSite: 'https://github.com/login'\n};\n\n/**\n * A Hoist Connector for connecting to GitHub\n * @extends {OAuth2Connector}\n */\nexport default class GitHubConnector extends OAuth2Connector {\n\n  /**\n   * create a new connector\n   * @param {object} configuration - the configuration properties to use\n   * @param {string} configuration.clientId - the OAuth2 client id\n   * @param {string} configuration.clientSecret - the OAuth2 client secret\n   */\n  constructor(configuration) {\n    super(merge({}, configuration, overrides));\n    this._clientId = configuration.clientId;\n  }\n\n  /**\n   * @private\n   * @param AuthorizationStore authorization the users authorisation store\n   * @returns Promise<object> an object containing key value pairs to send with the client to the authorization url\n   */\n  _authorizeParams(authorization) {\n    return super._authorizeParams(authorization)\n      .then((params) => {\n        return Promise.resolve(Math.round(Math.random() * 5000000))\n          .then((r) => {\n            return authorization.set('state', r).then(() => {\n              params.state = r;\n              return params;\n            });\n          });\n      });\n  }\n}\n"
+    "content": "import {\n  OAuth2ConnectorBase\n}\nfrom '@hoist/oauth-connector';\nimport {\n  merge\n}\nfrom 'lodash';\n\nlet overrides = {\n  baseSite: 'https://github.com/login'\n};\n\n/**\n * A Hoist Connector for connecting to GitHub\n * @extends {OAuth2ConnectorBase}\n */\nexport default class GitHubConnector extends OAuth2ConnectorBase {\n\n  /**\n   * create a new connector\n   * @param {object} configuration - the configuration properties to use\n   * @param {string} configuration.clientId - the OAuth2 client id\n   * @param {string} configuration.clientSecret - the OAuth2 client secret\n   */\n  constructor(configuration) {\n    super(merge({}, configuration, overrides));\n    this._clientId = configuration.clientId;\n  }\n\n  /**\n   * @private\n   * @param AuthorizationStore authorization the users authorisation store\n   * @returns Promise<object> an object containing key value pairs to send with the client to the authorization url\n   */\n  _authorizeParams(authorization) {\n    return super._authorizeParams(authorization)\n      .then((params) => {\n        return Promise.resolve(Math.round(Math.random() * 5000000))\n          .then((r) => {\n            return authorization.set('state', r).then(() => {\n              params.state = r;\n              return params;\n            });\n          });\n      });\n  }\n}\n\n/**\n * @external {OAuth2ConnectorBase} https://github.com/hoist/oauth-connector/blob/master/src/oauth2_connector.js\n */\n"
   },
   {
     "kind": "variable",
     "static": true,
     "variation": null,
     "name": "overrides",
-    "memberof": "src/github_connector.js",
-    "longname": "src/github_connector.js~overrides",
+    "memberof": "src/connector.js",
+    "longname": "src/connector.js~overrides",
     "access": null,
     "export": false,
-    "importPath": "hoist-connector-github/src/github_connector.js",
+    "importPath": "hoist-connector-github/src/connector.js",
     "importStyle": null,
     "description": null,
-    "lineNumber": 7,
+    "lineNumber": 10,
     "undocument": true,
     "type": {
       "types": [
@@ -341,29 +36,40 @@
     "static": true,
     "variation": null,
     "name": "GitHubConnector",
-    "memberof": "src/github_connector.js",
-    "longname": "src/github_connector.js~GitHubConnector",
+    "memberof": "src/connector.js",
+    "longname": "src/connector.js~GitHubConnector",
     "access": null,
     "export": true,
-    "importPath": "hoist-connector-github/src/github_connector.js",
+    "importPath": "hoist-connector-github/src/connector.js",
     "importStyle": "GitHubConnector",
     "description": "A Hoist Connector for connecting to GitHub",
-    "lineNumber": 15,
+    "lineNumber": 18,
     "interface": false,
     "extends": [
-      "OAuth2Connector"
+      "OAuth2ConnectorBase"
     ]
+  },
+  {
+    "kind": "external",
+    "static": true,
+    "variation": null,
+    "name": "OAuth2ConnectorBase",
+    "externalLink": "https://github.com/hoist/oauth-connector/blob/master/src/oauth2_connector.js",
+    "memberof": "src/connector.js",
+    "longname": "src/connector.js~OAuth2ConnectorBase",
+    "access": null,
+    "description": null
   },
   {
     "kind": "constructor",
     "static": false,
     "variation": null,
     "name": "constructor",
-    "memberof": "src/github_connector.js~GitHubConnector",
-    "longname": "src/github_connector.js~GitHubConnector#constructor",
+    "memberof": "src/connector.js~GitHubConnector",
+    "longname": "src/connector.js~GitHubConnector#constructor",
     "access": null,
     "description": "create a new connector",
-    "lineNumber": 23,
+    "lineNumber": 26,
     "params": [
       {
         "nullable": null,
@@ -403,11 +109,11 @@
     "static": false,
     "variation": null,
     "name": "_clientId",
-    "memberof": "src/github_connector.js~GitHubConnector",
-    "longname": "src/github_connector.js~GitHubConnector#_clientId",
+    "memberof": "src/connector.js~GitHubConnector",
+    "longname": "src/connector.js~GitHubConnector#_clientId",
     "access": null,
     "description": null,
-    "lineNumber": 25,
+    "lineNumber": 28,
     "undocument": true,
     "type": {
       "types": [
@@ -420,11 +126,11 @@
     "static": false,
     "variation": null,
     "name": "_authorizeParams",
-    "memberof": "src/github_connector.js~GitHubConnector",
-    "longname": "src/github_connector.js~GitHubConnector#_authorizeParams",
+    "memberof": "src/connector.js~GitHubConnector",
+    "longname": "src/connector.js~GitHubConnector#_authorizeParams",
     "access": "private",
     "description": null,
-    "lineNumber": 33,
+    "lineNumber": 36,
     "unknown": [
       {
         "tagName": "@returns",
@@ -450,304 +156,6 @@
       ],
       "spread": false,
       "description": "Promise<object> an object containing key value pairs to send with the client to the authorization url"
-    },
-    "generator": false
-  },
-  {
-    "kind": "file",
-    "static": true,
-    "variation": null,
-    "name": "src/oauth2_connector.js",
-    "memberof": null,
-    "longname": "src/oauth2_connector.js",
-    "access": null,
-    "description": null,
-    "lineNumber": 1,
-    "content": "'use strict';\nimport Bluebird from 'bluebird';\nimport {\n  OAuth2\n}\nfrom '@hoist/oauth';\n\n/**\n * @protected\n * The base OAuth2 Connector class used for Hoist Connectors to implement OAuth2 flows\n * @implements {ConnectorInterface}\n */\nexport default class OAuth2Connector {\n\n  /**\n   * @protected\n   * create a new OAuth2Connector\n   * @param {object} configuration - the configuration details for this connector\n   * @param {string} configuration.clientId - the OAuth2 client id\n   * @param {string} configuration.clientSecret - the OAuth2 client secret\n   * @param {string} configuration.baseSite - the base uri to use for authorization calls\n   * @param {string} [configuration.authorizationPath=/oauth/authorize] - the path to send users to authorise access\n   * @param {string} [configuration.accessTokenPath=/oauth/access_token] - the path to use to retrieve access tokens\n   * @param {object} [configuration.customHeaders] - any custom headers to send\n   */\n  constructor(configuration) {\n    this._auth = Bluebird.promisifyAll(new OAuth2(configuration.clientId, configuration.clientSecret, configuration.baseSite, configuration.authorizationPath, configuration.accessTokenPath, configuration.customHeaders));\n  }\n\n  /**\n   * Populate any extra params needed to grant access\n   * @protected\n   * @param {AuthorizationStore} authorization - the users authorisation store\n   * @returns {Promise<object>} - an object containing key value pairs to send with the client to the authorization url\n   */\n  _authorizeParams(authorization) {\n    return Promise.resolve({\n      redirect_uri: 'https://bouncer.hoist.io/bounce'\n    });\n  }\n\n  /**\n   * Populate any extra params needed to request the access token\n   * @protected\n   * @param {AuthorizationStore} authorization - the users authorisation store\n   * @returns {Promise<object>} - an object containing key value pairs to send with the access token request\n   */\n  _accessParams(authorization) {\n    return Promise.resolve();\n  }\n\n  /**\n   * authorize the oauth connection with existing parameters\n   * @param {<AuthorizationStore>} authorization - the users authorization\n   */\n  authorize(authorization) {\n    this._accessToken = authorization.get('AccessToken');\n    this._refreshToken = authorization.get('RefreshToken');\n  }\n\n  /**\n   * @param {AuthorizationStore} authorization - the users authorization\n   */\n  receiveBounce(authorization) {\n    var authStep = authorization.get('currentStep');\n    if (!authStep) {\n      //no authorization has been done yet so lets get the authorization url and redirec the user there\n      return this._authorizeParams(authorization)\n        .then((params) => {\n          return this._auth.getAuthorizeUrl(params);\n        }).then((authUri) => {\n          //set the step so we know to get the access token when they return\n          return authorization.set('currentStep', 'authorization')\n            .then(() => {\n              //redirect the user\n              return authorization.redirect(authUri);\n            })\n        });\n    } else if (authStep === 'authorization') {\n      return this._accessParams(authorization)\n        .then((params) => {\n          return this._auth.getOAuthAccessTokenAsync(authorization.query.code, params);\n        }).then((results) => {\n          return authorization.set('AccessToken', results[0])\n            .then(() => {\n              return authorization.set('RefreshToken', results[1]);\n            }).then(() => {\n              return this._processResults(results[2]);\n            });\n        });\n    }\n    //default just mark as done\n    return authorization.done();\n  }\n\n}\n"
-  },
-  {
-    "kind": "class",
-    "static": true,
-    "variation": null,
-    "name": "OAuth2Connector",
-    "memberof": "src/oauth2_connector.js",
-    "longname": "src/oauth2_connector.js~OAuth2Connector",
-    "access": "protected",
-    "export": true,
-    "importPath": "hoist-connector-github/src/oauth2_connector.js",
-    "importStyle": "OAuth2Connector",
-    "description": null,
-    "lineNumber": 13,
-    "interface": false,
-    "implements": [
-      "ConnectorInterface"
-    ]
-  },
-  {
-    "kind": "constructor",
-    "static": false,
-    "variation": null,
-    "name": "constructor",
-    "memberof": "src/oauth2_connector.js~OAuth2Connector",
-    "longname": "src/oauth2_connector.js~OAuth2Connector#constructor",
-    "access": "protected",
-    "description": null,
-    "lineNumber": 26,
-    "params": [
-      {
-        "nullable": null,
-        "types": [
-          "object"
-        ],
-        "spread": false,
-        "optional": false,
-        "name": "configuration",
-        "description": "the configuration details for this connector"
-      },
-      {
-        "nullable": null,
-        "types": [
-          "string"
-        ],
-        "spread": false,
-        "optional": false,
-        "name": "configuration.clientId",
-        "description": "the OAuth2 client id"
-      },
-      {
-        "nullable": null,
-        "types": [
-          "string"
-        ],
-        "spread": false,
-        "optional": false,
-        "name": "configuration.clientSecret",
-        "description": "the OAuth2 client secret"
-      },
-      {
-        "nullable": null,
-        "types": [
-          "string"
-        ],
-        "spread": false,
-        "optional": false,
-        "name": "configuration.baseSite",
-        "description": "the base uri to use for authorization calls"
-      },
-      {
-        "nullable": null,
-        "types": [
-          "string"
-        ],
-        "spread": false,
-        "optional": true,
-        "defaultValue": "/oauth/authorize",
-        "defaultRaw": "/oauth/authorize",
-        "name": "configuration.authorizationPath",
-        "description": "the path to send users to authorise access"
-      },
-      {
-        "nullable": null,
-        "types": [
-          "string"
-        ],
-        "spread": false,
-        "optional": true,
-        "defaultValue": "/oauth/access_token",
-        "defaultRaw": "/oauth/access_token",
-        "name": "configuration.accessTokenPath",
-        "description": "the path to use to retrieve access tokens"
-      },
-      {
-        "nullable": null,
-        "types": [
-          "object"
-        ],
-        "spread": false,
-        "optional": true,
-        "name": "configuration.customHeaders",
-        "description": "any custom headers to send"
-      }
-    ],
-    "generator": false
-  },
-  {
-    "kind": "member",
-    "static": false,
-    "variation": null,
-    "name": "_auth",
-    "memberof": "src/oauth2_connector.js~OAuth2Connector",
-    "longname": "src/oauth2_connector.js~OAuth2Connector#_auth",
-    "access": null,
-    "description": null,
-    "lineNumber": 27,
-    "undocument": true,
-    "type": {
-      "types": [
-        "*"
-      ]
-    }
-  },
-  {
-    "kind": "method",
-    "static": false,
-    "variation": null,
-    "name": "_authorizeParams",
-    "memberof": "src/oauth2_connector.js~OAuth2Connector",
-    "longname": "src/oauth2_connector.js~OAuth2Connector#_authorizeParams",
-    "access": "protected",
-    "description": "Populate any extra params needed to grant access",
-    "lineNumber": 36,
-    "unknown": [
-      {
-        "tagName": "@returns",
-        "tagValue": "{Promise<object>} - an object containing key value pairs to send with the client to the authorization url"
-      }
-    ],
-    "params": [
-      {
-        "nullable": null,
-        "types": [
-          "AuthorizationStore"
-        ],
-        "spread": false,
-        "optional": false,
-        "name": "authorization",
-        "description": "the users authorisation store"
-      }
-    ],
-    "return": {
-      "nullable": null,
-      "types": [
-        "Promise<object>"
-      ],
-      "spread": false,
-      "description": "an object containing key value pairs to send with the client to the authorization url"
-    },
-    "generator": false
-  },
-  {
-    "kind": "method",
-    "static": false,
-    "variation": null,
-    "name": "_accessParams",
-    "memberof": "src/oauth2_connector.js~OAuth2Connector",
-    "longname": "src/oauth2_connector.js~OAuth2Connector#_accessParams",
-    "access": "protected",
-    "description": "Populate any extra params needed to request the access token",
-    "lineNumber": 48,
-    "unknown": [
-      {
-        "tagName": "@returns",
-        "tagValue": "{Promise<object>} - an object containing key value pairs to send with the access token request"
-      }
-    ],
-    "params": [
-      {
-        "nullable": null,
-        "types": [
-          "AuthorizationStore"
-        ],
-        "spread": false,
-        "optional": false,
-        "name": "authorization",
-        "description": "the users authorisation store"
-      }
-    ],
-    "return": {
-      "nullable": null,
-      "types": [
-        "Promise<object>"
-      ],
-      "spread": false,
-      "description": "an object containing key value pairs to send with the access token request"
-    },
-    "generator": false
-  },
-  {
-    "kind": "method",
-    "static": false,
-    "variation": null,
-    "name": "authorize",
-    "memberof": "src/oauth2_connector.js~OAuth2Connector",
-    "longname": "src/oauth2_connector.js~OAuth2Connector#authorize",
-    "access": null,
-    "description": "authorize the oauth connection with existing parameters",
-    "lineNumber": 56,
-    "params": [
-      {
-        "nullable": null,
-        "types": [
-          "<AuthorizationStore>"
-        ],
-        "spread": false,
-        "optional": false,
-        "name": "authorization",
-        "description": "the users authorization"
-      }
-    ],
-    "generator": false
-  },
-  {
-    "kind": "member",
-    "static": false,
-    "variation": null,
-    "name": "_accessToken",
-    "memberof": "src/oauth2_connector.js~OAuth2Connector",
-    "longname": "src/oauth2_connector.js~OAuth2Connector#_accessToken",
-    "access": null,
-    "description": null,
-    "lineNumber": 57,
-    "undocument": true,
-    "type": {
-      "types": [
-        "*"
-      ]
-    }
-  },
-  {
-    "kind": "member",
-    "static": false,
-    "variation": null,
-    "name": "_refreshToken",
-    "memberof": "src/oauth2_connector.js~OAuth2Connector",
-    "longname": "src/oauth2_connector.js~OAuth2Connector#_refreshToken",
-    "access": null,
-    "description": null,
-    "lineNumber": 58,
-    "undocument": true,
-    "type": {
-      "types": [
-        "*"
-      ]
-    }
-  },
-  {
-    "kind": "method",
-    "static": false,
-    "variation": null,
-    "name": "receiveBounce",
-    "memberof": "src/oauth2_connector.js~OAuth2Connector",
-    "longname": "src/oauth2_connector.js~OAuth2Connector#receiveBounce",
-    "access": null,
-    "description": null,
-    "lineNumber": 64,
-    "params": [
-      {
-        "nullable": null,
-        "types": [
-          "AuthorizationStore"
-        ],
-        "spread": false,
-        "optional": false,
-        "name": "authorization",
-        "description": "the users authorization"
-      }
-    ],
-    "return": {
-      "types": [
-        "*"
-      ]
     },
     "generator": false
   },
@@ -1409,7 +817,7 @@
     "access": null,
     "description": null,
     "lineNumber": 1,
-    "content": "import GitHubConnector from '../../lib/github_connector';\nimport sinon from 'sinon';\nimport {\n  expect\n}\nfrom 'chai';\ndescribe('authorization steps', () => {\n  let connector;\n  let clientId = 'clientId';\n  let clientSecret = 'clientSecret';\n  before(() => {\n    connector = new GitHubConnector({\n      clientId,\n      clientSecret\n    });\n  });\n  describe('on first bounce', () => {\n    let bounce;\n    before(() => {\n      bounce = {\n        get: function () {\n          return undefined;\n        },\n        delete: function () {\n          return Promise.resolve(null);\n        },\n        set: function () {\n          console.log('set', arguments);\n          return Promise.resolve(null);\n        },\n        redirect: function () {\n          console.log('redirect', arguments);\n          return Promise.resolve(null);\n        },\n        done: function () {\n          console.log('done', arguments);\n          return Promise.resolve(null);\n        }\n      };\n      sinon.spy(bounce, 'get');\n      sinon.spy(bounce, 'set');\n      sinon.spy(bounce, 'redirect');\n      return connector.receiveBounce(bounce);\n    });\n    it('should save state', () => {\n      return expect(bounce.set).to.have.been.calledWith('state');\n    });\n    it('should save current step', () => {\n      return expect(bounce.set).to.have.been.calledWith('currentStep', 'authorization');\n    });\n    it('should receive a redirect', () => {\n      return expect(bounce.redirect).to.have.been.calledWith(`https://github.com/login/oauth/authorize?redirect_uri=https%3A%2F%2Fbouncer.hoist.io%2Fbounce&state=${bounce.set.getCall(0).args[1]}&client_id=${clientId}`);\n    });\n  });\n});\n"
+    "content": "import GitHubConnector from '../../lib/connector';\nimport sinon from 'sinon';\nimport {\n  expect\n}\nfrom 'chai';\ndescribe('authorization steps', () => {\n  let connector;\n  let clientId = 'clientId';\n  let clientSecret = 'clientSecret';\n  before(() => {\n    connector = new GitHubConnector({\n      clientId,\n      clientSecret\n    });\n  });\n  describe('on first bounce', () => {\n    let bounce;\n    before(() => {\n      bounce = {\n        get: function () {\n          return undefined;\n        },\n        delete: function () {\n          return Promise.resolve(null);\n        },\n        set: function () {\n          console.log('set', arguments);\n          return Promise.resolve(null);\n        },\n        redirect: function () {\n          console.log('redirect', arguments);\n          return Promise.resolve(null);\n        },\n        done: function () {\n          console.log('done', arguments);\n          return Promise.resolve(null);\n        }\n      };\n      sinon.spy(bounce, 'get');\n      sinon.spy(bounce, 'set');\n      sinon.spy(bounce, 'redirect');\n      return connector.receiveBounce(bounce);\n    });\n    it('should save state', () => {\n      return expect(bounce.set).to.have.been.calledWith('state');\n    });\n    it('should save current step', () => {\n      return expect(bounce.set).to.have.been.calledWith('currentStep', 'authorization');\n    });\n    it('should receive a redirect', () => {\n      return expect(bounce.redirect).to.have.been.calledWith(`https://github.com/login/oauth/authorize?redirect_uri=https%3A%2F%2Fbouncer.hoist.io%2Fbounce&state=${bounce.set.getCall(0).args[1]}&client_id=${clientId}`);\n    });\n  });\n});\n"
   },
   {
     "kind": "testDescribe",

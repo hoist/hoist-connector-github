@@ -1,26 +1,8 @@
 window.esdocSearchIndex = [
   [
-    "hoist-connector-github/src/authorisation_store.js~authorizationstore",
-    "class/src/authorisation_store.js~AuthorizationStore.html",
-    "<span>AuthorizationStore</span> <span class=\"search-result-import-path\">hoist-connector-github/src/authorisation_store.js</span>",
-    "class"
-  ],
-  [
-    "hoist-connector-github/src/connector_interface.js~connectorinterface",
-    "class/src/connector_interface.js~ConnectorInterface.html",
-    "<span>ConnectorInterface</span> <span class=\"search-result-import-path\">hoist-connector-github/src/connector_interface.js</span>",
-    "class"
-  ],
-  [
-    "hoist-connector-github/src/github_connector.js~githubconnector",
-    "class/src/github_connector.js~GitHubConnector.html",
-    "<span>GitHubConnector</span> <span class=\"search-result-import-path\">hoist-connector-github/src/github_connector.js</span>",
-    "class"
-  ],
-  [
-    "hoist-connector-github/src/oauth2_connector.js~oauth2connector",
-    "class/src/oauth2_connector.js~OAuth2Connector.html",
-    "<span>OAuth2Connector</span> <span class=\"search-result-import-path\">hoist-connector-github/src/oauth2_connector.js</span>",
+    "hoist-connector-github/src/connector.js~githubconnector",
+    "class/src/connector.js~GitHubConnector.html",
+    "<span>GitHubConnector</span> <span class=\"search-result-import-path\">hoist-connector-github/src/connector.js</span>",
     "class"
   ],
   [
@@ -378,112 +360,22 @@ window.esdocSearchIndex = [
     "test"
   ],
   [
-    "src/authorisation_store.js",
-    "file/src/authorisation_store.js.html",
-    "src/authorisation_store.js",
+    "src/connector.js",
+    "file/src/connector.js.html",
+    "src/connector.js",
     "file"
   ],
   [
-    "src/authorisation_store.js~authorizationstore#delete",
-    "class/src/authorisation_store.js~AuthorizationStore.html#instance-method-delete",
-    "src/authorisation_store.js~AuthorizationStore#delete",
+    "src/connector.js~githubconnector#constructor",
+    "class/src/connector.js~GitHubConnector.html#instance-constructor-constructor",
+    "src/connector.js~GitHubConnector#constructor",
     "method"
   ],
   [
-    "src/authorisation_store.js~authorizationstore#done",
-    "class/src/authorisation_store.js~AuthorizationStore.html#instance-method-done",
-    "src/authorisation_store.js~AuthorizationStore#done",
-    "method"
-  ],
-  [
-    "src/authorisation_store.js~authorizationstore#get",
-    "class/src/authorisation_store.js~AuthorizationStore.html#instance-method-get",
-    "src/authorisation_store.js~AuthorizationStore#get",
-    "method"
-  ],
-  [
-    "src/authorisation_store.js~authorizationstore#query",
-    "class/src/authorisation_store.js~AuthorizationStore.html#instance-get-query",
-    "src/authorisation_store.js~AuthorizationStore#query",
-    "member"
-  ],
-  [
-    "src/authorisation_store.js~authorizationstore#redirect",
-    "class/src/authorisation_store.js~AuthorizationStore.html#instance-method-redirect",
-    "src/authorisation_store.js~AuthorizationStore#redirect",
-    "method"
-  ],
-  [
-    "src/authorisation_store.js~authorizationstore#set",
-    "class/src/authorisation_store.js~AuthorizationStore.html#instance-method-set",
-    "src/authorisation_store.js~AuthorizationStore#set",
-    "method"
-  ],
-  [
-    "src/connector_interface.js",
-    "file/src/connector_interface.js.html",
-    "src/connector_interface.js",
-    "file"
-  ],
-  [
-    "src/connector_interface.js~connectorinterface#authorize",
-    "class/src/connector_interface.js~ConnectorInterface.html#instance-method-authorize",
-    "src/connector_interface.js~ConnectorInterface#authorize",
-    "method"
-  ],
-  [
-    "src/connector_interface.js~connectorinterface#recievebounce",
-    "class/src/connector_interface.js~ConnectorInterface.html#instance-method-recieveBounce",
-    "src/connector_interface.js~ConnectorInterface#recieveBounce",
-    "method"
-  ],
-  [
-    "src/github_connector.js",
-    "file/src/github_connector.js.html",
-    "src/github_connector.js",
-    "file"
-  ],
-  [
-    "src/github_connector.js~githubconnector#constructor",
-    "class/src/github_connector.js~GitHubConnector.html#instance-constructor-constructor",
-    "src/github_connector.js~GitHubConnector#constructor",
-    "method"
-  ],
-  [
-    "src/oauth2_connector.js",
-    "file/src/oauth2_connector.js.html",
-    "src/oauth2_connector.js",
-    "file"
-  ],
-  [
-    "src/oauth2_connector.js~oauth2connector#_accessparams",
-    "class/src/oauth2_connector.js~OAuth2Connector.html#instance-method-_accessParams",
-    "src/oauth2_connector.js~OAuth2Connector#_accessParams",
-    "method"
-  ],
-  [
-    "src/oauth2_connector.js~oauth2connector#_authorizeparams",
-    "class/src/oauth2_connector.js~OAuth2Connector.html#instance-method-_authorizeParams",
-    "src/oauth2_connector.js~OAuth2Connector#_authorizeParams",
-    "method"
-  ],
-  [
-    "src/oauth2_connector.js~oauth2connector#authorize",
-    "class/src/oauth2_connector.js~OAuth2Connector.html#instance-method-authorize",
-    "src/oauth2_connector.js~OAuth2Connector#authorize",
-    "method"
-  ],
-  [
-    "src/oauth2_connector.js~oauth2connector#constructor",
-    "class/src/oauth2_connector.js~OAuth2Connector.html#instance-constructor-constructor",
-    "src/oauth2_connector.js~OAuth2Connector#constructor",
-    "method"
-  ],
-  [
-    "src/oauth2_connector.js~oauth2connector#receivebounce",
-    "class/src/oauth2_connector.js~OAuth2Connector.html#instance-method-receiveBounce",
-    "src/oauth2_connector.js~OAuth2Connector#receiveBounce",
-    "method"
+    "src/connector.js~oauth2connectorbase",
+    "external/index.html",
+    "src/connector.js~OAuth2ConnectorBase",
+    "external"
   ],
   [
     "tests/integration_tests/auth_tests.js",

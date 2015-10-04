@@ -1,4 +1,4 @@
-import GitHubConnector from '../../lib/github_connector';
+import GitHubConnector from '../../lib/connector';
 import sinon from 'sinon';
 import {
   expect

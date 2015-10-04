@@ -1,29 +1,11 @@
 {
-  "coverage": "88.88%",
-  "expectCount": 18,
-  "actualCount": 16,
+  "coverage": "100%",
+  "expectCount": 2,
+  "actualCount": 2,
   "files": {
-    "src/authorisation_store.js": {
-      "expectCount": 7,
-      "actualCount": 7,
-      "undocumentLines": []
-    },
-    "src/connector_interface.js": {
-      "expectCount": 3,
-      "actualCount": 1,
-      "undocumentLines": [
-        12,
-        20
-      ]
-    },
-    "src/github_connector.js": {
+    "src/connector.js": {
       "expectCount": 2,
       "actualCount": 2,
-      "undocumentLines": []
-    },
-    "src/oauth2_connector.js": {
-      "expectCount": 6,
-      "actualCount": 6,
       "undocumentLines": []
     }
   }

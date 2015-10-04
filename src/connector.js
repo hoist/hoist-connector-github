@@ -1,4 +1,7 @@
-import OAuth2Connector from './oauth2_connector';
+import {
+  OAuth2ConnectorBase
+}
+from '@hoist/oauth-connector';
 import {
   merge
 }
@@ -10,9 +13,9 @@ let overrides = {
 
 /**
  * A Hoist Connector for connecting to GitHub
- * @extends {OAuth2Connector}
+ * @extends {OAuth2ConnectorBase}
  */
-export default class GitHubConnector extends OAuth2Connector {
+export default class GitHubConnector extends OAuth2ConnectorBase {
 
   /**
    * create a new connector
@@ -43,3 +46,7 @@ export default class GitHubConnector extends OAuth2Connector {
       });
   }
 }
+
+/**
+ * @external {OAuth2ConnectorBase} https://github.com/hoist/oauth-connector/blob/master/src/oauth2_connector.js
+ */

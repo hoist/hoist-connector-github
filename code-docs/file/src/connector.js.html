@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <base data-ice="baseUrl" href="../../">
-  <title data-ice="title">src/github_connector.js | API Document</title>
+  <title data-ice="title">src/connector.js | API Document</title>
   <link type="text/css" rel="stylesheet" href="css/style.css">
   <link type="text/css" rel="stylesheet" href="css/prettify-tomorrow.css">
   <script src="script/prettify/prettify.js"></script>
@@ -31,31 +31,32 @@
   <h2>Class</h2>
   <ul>
     
-  <li data-ice="classDoc"><span><a href="class/src/github_connector.js~GitHubConnector.html">GitHubConnector</a></span></li>
-<li data-ice="classDoc"><span><a href="class/src/oauth2_connector.js~OAuth2Connector.html">OAuth2Connector</a></span></li>
+  <li data-ice="classDoc"><span><a href="class/src/connector.js~GitHubConnector.html">GitHubConnector</a></span></li>
 </ul>
 </div>
 
-<div data-ice="interfaceWrap">
-  <h2>Interface</h2>
+
+
+
+
+
+
+
+
+<div data-ice="externalWrap">
+  <h2>External</h2>
   <ul>
     
-  <li data-ice="interfaceDoc"><span><a href="class/src/authorisation_store.js~AuthorizationStore.html">AuthorizationStore</a></span></li>
-<li data-ice="interfaceDoc"><span><a href="class/src/connector_interface.js~ConnectorInterface.html">ConnectorInterface</a></span></li>
+  <li data-ice="externalDoc"><span><a href="https://github.com/hoist/oauth-connector/blob/master/src/oauth2_connector.js">OAuth2ConnectorBase</a></span></li>
 </ul>
 </div>
-
-
-
-
-
-
-
-
 </nav>
 
-<div class="content" data-ice="content"><h1 data-ice="title">src/github_connector.js</h1>
-<pre class="source-code line-number raw-source-code"><code class="prettyprint linenums" data-ice="content">import OAuth2Connector from &apos;./oauth2_connector&apos;;
+<div class="content" data-ice="content"><h1 data-ice="title">src/connector.js</h1>
+<pre class="source-code line-number raw-source-code"><code class="prettyprint linenums" data-ice="content">import {
+  OAuth2ConnectorBase
+}
+from &apos;@hoist/oauth-connector&apos;;
 import {
   merge
 }
@@ -67,9 +68,9 @@ let overrides = {
 
 /**
  * A Hoist Connector for connecting to GitHub
- * @extends {OAuth2Connector}
+ * @extends {OAuth2ConnectorBase}
  */
-export default class GitHubConnector extends OAuth2Connector {
+export default class GitHubConnector extends OAuth2ConnectorBase {
 
   /**
    * create a new connector
@@ -100,6 +101,10 @@ export default class GitHubConnector extends OAuth2Connector {
       });
   }
 }
+
+/**
+ * @external {OAuth2ConnectorBase} https://github.com/hoist/oauth-connector/blob/master/src/oauth2_connector.js
+ */
 </code></pre>
 
 </div>

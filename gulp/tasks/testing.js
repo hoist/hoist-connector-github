@@ -26,7 +26,7 @@ function runMocha(options) {
 gulp.task('mocha-server', ['eslint', 'transpile', 'clean-coverage'], function (cb) {
   require("babel/register");
   try {
-    gulp.src(globs.js.src.all)
+    gulp.src(globs.js.src)
       .pipe(plugins.plumber({
         errorHandler: function (err) {
           cb(err);
@@ -78,7 +78,7 @@ gulp.task('mocha-server-continue', ['eslint', 'transpile', 'clean-coverage'], fu
       }
     });
   } else {
-    gulp.src(globs.js.src.all)
+    gulp.src(globs.js.src)
       .pipe(plugins.plumber({
         errorHandler: helpers.errorHandler
       }))

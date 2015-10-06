@@ -55,20 +55,30 @@
 <div class="content" data-ice="content"><h1 data-ice="title">tests/integration_tests/auth_tests.js</h1>
 <pre class="source-code line-number raw-source-code"><code class="prettyprint linenums" data-ice="content">import GitHubConnector from &apos;../../lib/connector&apos;;
 import sinon from &apos;sinon&apos;;
+import config from &apos;config&apos;;
 import {
   expect
 }
 from &apos;chai&apos;;
+import Nightmare from &apos;nightmare&apos;;
+import url from &apos;url&apos;;
+
 describe(&apos;authorization steps&apos;, () =&gt; {
   let connector;
-  let clientId = &apos;clientId&apos;;
-  let clientSecret = &apos;clientSecret&apos;;
+  let clientId = config.get(&apos;clientId&apos;);
+  let clientSecret = config.get(&apos;clientSecret&apos;);
+  let nightmare;
   before(() =&gt; {
+    nightmare = Nightmare();
     connector = new GitHubConnector({
       clientId,
       clientSecret
     });
+
   });
+  after(function () {
+    return nightmare.end();
+  })
   describe(&apos;on first bounce&apos;, () =&gt; {
     let bounce;
     before(() =&gt; {
@@ -104,9 +114,63 @@ describe(&apos;authorization steps&apos;, () =&gt; {
       return expect(bounce.set).to.have.been.calledWith(&apos;currentStep&apos;, &apos;authorization&apos;);
     });
     it(&apos;should receive a redirect&apos;, () =&gt; {
-      return expect(bounce.redirect).to.have.been.calledWith(`https://github.com/login/oauth/authorize?redirect_uri=https%3A%2F%2Fbouncer.hoist.io%2Fbounce&amp;state=${bounce.set.getCall(0).args[1]}&amp;client_id=${clientId}`);
+      return expect(bounce.redirect).to.have.been.calledWith(`https://github.com/login/oauth/authorize?redirect_uri=https%3A%2F%2Fbouncer.hoist.test%2Fbounce&amp;state=${bounce.set.getCall(0).args[1]}&amp;client_id=${clientId}`);
     });
   });
+  describe(&apos;on return from github&apos;, function () {
+    let bounce;
+    this.timeout(10000);
+    let uri;
+
+    before(() =&gt; {
+
+      bounce = {
+        store: {},
+        get: function (key) {
+          return this.store[key];
+        },
+        delete: function (key) {
+          delete this.store[key];
+          return Promise.resolve(null);
+        },
+        set: function (key, value) {
+          this.store[key] = value;
+          return Promise.resolve(null);
+        },
+        redirect: function () {
+          console.log(&apos;redirect&apos;, arguments);
+          return Promise.resolve(null);
+        },
+        done: function () {
+          console.log(&apos;done&apos;, arguments);
+          return Promise.resolve(null);
+        }
+      };
+      sinon.spy(bounce, &apos;get&apos;);
+      sinon.spy(bounce, &apos;set&apos;);
+      sinon.spy(bounce, &apos;redirect&apos;);
+      return Promise.resolve(connector.receiveBounce(bounce))
+        .then(function () {
+          let authorizeUri = bounce.redirect.getCall(0).args[0];
+          return Promise.resolve(nightmare.goto(authorizeUri));
+        }).then(() =&gt; {
+          return Promise.resolve(nightmare.type(&apos;#login_field&apos;, config.get(&apos;username&apos;))
+            .type(&apos;#password&apos;, config.get(&apos;password&apos;))
+            .click(&apos;[name=&quot;commit&quot;]&apos;));
+        }).then(() =&gt; {
+          return Promise.resolve(nightmare.wait(&apos;#message&apos;).url());
+        }).then((u) =&gt; {
+          uri = url.parse(u, true);
+          bounce.query = uri.query;
+        }).then(() =&gt; {
+          return connector.receiveBounce(bounce);
+        });
+
+    });
+    it(&apos;should save state&apos;, () =&gt; {
+      return expect(bounce.store[&apos;AccessToken&apos;]).to.exist;
+    });
+  })
 });
 </code></pre>
 

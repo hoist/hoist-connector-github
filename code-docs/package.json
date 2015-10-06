@@ -18,7 +18,6 @@
   "devDependencies": {
     "@hoist/model": "^1.1.0",
     "babel": "^5.8.23",
-    "casperjs": "^1.1.0-beta3",
     "chai": "^3.2.0",
     "chai-as-promised": "^5.1.0",
     "config": "^1.16.0",
@@ -37,8 +36,6 @@
     "mocha-notifier-reporter": "^0.1.1",
     "nightmare": "hoist/nightmare",
     "node-notifier": "^4.2.3",
-    "phantom-as-promise": "0.0.3",
-    "phantomjs": "^1.9.18",
     "require-dir": "^0.3.0",
     "run-sequence": "^1.1.2",
     "sinon": "^1.16.1",

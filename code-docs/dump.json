@@ -817,7 +817,7 @@
     "access": null,
     "description": null,
     "lineNumber": 1,
-    "content": "import GitHubConnector from '../../lib/connector';\nimport sinon from 'sinon';\nimport config from 'config';\nimport {\n  expect\n}\nfrom 'chai';\nimport Nightmare from 'nightmare';\nimport url from 'url';\n\ndescribe('authorization steps', () => {\n  let connector;\n  let clientId = config.get('clientId');\n  let clientSecret = config.get('clientSecret');\n  let nightmare;\n  before(() => {\n    nightmare = Nightmare();\n    connector = new GitHubConnector({\n      clientId,\n      clientSecret\n    });\n\n  });\n  after(function () {\n    return nightmare.end();\n  })\n  describe('on first bounce', () => {\n    let bounce;\n    before(() => {\n      bounce = {\n        get: function () {\n          return undefined;\n        },\n        delete: function () {\n          return Promise.resolve(null);\n        },\n        set: function () {\n          console.log('set', arguments);\n          return Promise.resolve(null);\n        },\n        redirect: function () {\n          console.log('redirect', arguments);\n          return Promise.resolve(null);\n        },\n        done: function () {\n          console.log('done', arguments);\n          return Promise.resolve(null);\n        }\n      };\n      sinon.spy(bounce, 'get');\n      sinon.spy(bounce, 'set');\n      sinon.spy(bounce, 'redirect');\n      return connector.receiveBounce(bounce);\n    });\n    it('should save state', () => {\n      return expect(bounce.set).to.have.been.calledWith('state');\n    });\n    it('should save current step', () => {\n      return expect(bounce.set).to.have.been.calledWith('currentStep', 'authorization');\n    });\n    it('should receive a redirect', () => {\n      return expect(bounce.redirect).to.have.been.calledWith(`https://github.com/login/oauth/authorize?redirect_uri=https%3A%2F%2Fbouncer.hoist.test%2Fbounce&state=${bounce.set.getCall(0).args[1]}&client_id=${clientId}`);\n    });\n  });\n  describe('on return from github', function () {\n    let bounce;\n    this.timeout(10000);\n    let uri;\n\n    before(() => {\n\n      bounce = {\n        store: {},\n        get: function (key) {\n          return this.store[key];\n        },\n        delete: function (key) {\n          delete this.store[key];\n          return Promise.resolve(null);\n        },\n        set: function (key, value) {\n          this.store[key] = value;\n          return Promise.resolve(null);\n        },\n        redirect: function () {\n          console.log('redirect', arguments);\n          return Promise.resolve(null);\n        },\n        done: function () {\n          console.log('done', arguments);\n          return Promise.resolve(null);\n        }\n      };\n      sinon.spy(bounce, 'get');\n      sinon.spy(bounce, 'set');\n      sinon.spy(bounce, 'redirect');\n      return Promise.resolve(connector.receiveBounce(bounce))\n        .then(function () {\n          let authorizeUri = bounce.redirect.getCall(0).args[0];\n          return Promise.resolve(nightmare.goto(authorizeUri));\n        }).then(() => {\n          return Promise.resolve(nightmare.type('#login_field', config.get('username'))\n            .type('#password', config.get('password'))\n            .click('[name=\"commit\"]'));\n        }).then(() => {\n          return Promise.resolve(nightmare.wait('#message').url());\n        }).then((u) => {\n          uri = url.parse(u, true);\n          bounce.query = uri.query;\n        }).then(() => {\n          return connector.receiveBounce(bounce);\n        });\n\n    });\n    it('should save state', () => {\n      return expect(bounce.store['AccessToken']).to.exist;\n    });\n  })\n});\n"
+    "content": "import GitHubConnector from '../../lib/connector';\nimport sinon from 'sinon';\nimport config from 'config';\nimport {\n  expect\n}\nfrom 'chai';\nimport Nightmare from 'nightmare';\nimport url from 'url';\nimport os from 'os';\n\nlet osType = os.type();\ndescribe('authorization steps', function () {\n  let connector;\n  let clientId = config.get('clientId');\n  let clientSecret = config.get('clientSecret');\n  let nightmare;\n\n  before(function () {\n\n    nightmare = Nightmare();\n    connector = new GitHubConnector({\n      clientId,\n      clientSecret\n    });\n\n  });\n  after(function () {\n    return nightmare.end();\n  })\n  describe('on first bounce', () => {\n    let bounce;\n    before(function () {\n\n      bounce = {\n        get: function () {\n          return undefined;\n        },\n        delete: function () {\n          return Promise.resolve(null);\n        },\n        set: function () {\n          console.log('set', arguments);\n          return Promise.resolve(null);\n        },\n        redirect: function () {\n          console.log('redirect', arguments);\n          return Promise.resolve(null);\n        },\n        done: function () {\n          console.log('done', arguments);\n          return Promise.resolve(null);\n        }\n      };\n      sinon.spy(bounce, 'get');\n      sinon.spy(bounce, 'set');\n      sinon.spy(bounce, 'redirect');\n      return connector.receiveBounce(bounce);\n    });\n    it('should save state', () => {\n      return expect(bounce.set).to.have.been.calledWith('state');\n    });\n    it('should save current step', () => {\n      return expect(bounce.set).to.have.been.calledWith('currentStep', 'authorization');\n    });\n    it('should receive a redirect', () => {\n      return expect(bounce.redirect).to.have.been.calledWith(`https://github.com/login/oauth/authorize?redirect_uri=https%3A%2F%2Fbouncer.hoist.test%2Fbounce&state=${bounce.set.getCall(0).args[1]}&client_id=${clientId}`);\n    });\n  });\n  describe('on return from github', function () {\n    let bounce;\n    this.timeout(50000);\n    let uri;\n\n    before(function () {\n      if (osType === 'Linux') {\n        this.skip();\n      }\n      bounce = {\n        store: {},\n        get: function (key) {\n          return this.store[key];\n        },\n        delete: function (key) {\n          delete this.store[key];\n          return Promise.resolve(null);\n        },\n        set: function (key, value) {\n          this.store[key] = value;\n          return Promise.resolve(null);\n        },\n        redirect: function () {\n          console.log('redirect', arguments);\n          return Promise.resolve(null);\n        },\n        done: function () {\n          console.log('done', arguments);\n          return Promise.resolve(null);\n        }\n      };\n      sinon.spy(bounce, 'get');\n      sinon.spy(bounce, 'set');\n      sinon.spy(bounce, 'redirect');\n      return Promise.resolve(connector.receiveBounce(bounce))\n        .then(function () {\n          let authorizeUri = bounce.redirect.getCall(0).args[0];\n          return Promise.resolve(nightmare.goto(authorizeUri));\n        }).then(() => {\n          return Promise.resolve(nightmare.type('#login_field', config.get('username'))\n            .type('#password', config.get('password'))\n            .click('[name=\"commit\"]'));\n        }).then(() => {\n          return Promise.resolve(nightmare.wait('#message').url());\n        }).then((u) => {\n          uri = url.parse(u, true);\n          bounce.query = uri.query;\n        }).then(() => {\n          return connector.receiveBounce(bounce);\n        });\n\n    });\n    it('should save state', () => {\n      return expect(bounce.store['AccessToken']).to.exist;\n    });\n  })\n});\n"
   },
   {
     "kind": "testDescribe",
@@ -830,7 +830,7 @@
     "longname": "tests/integration_tests/auth_tests.js~describe0",
     "access": null,
     "description": "authorization steps",
-    "lineNumber": 11
+    "lineNumber": 13
   },
   {
     "kind": "testDescribe",
@@ -843,7 +843,7 @@
     "longname": "tests/integration_tests/auth_tests.js~describe0.describe1",
     "access": null,
     "description": "on first bounce",
-    "lineNumber": 27
+    "lineNumber": 31
   },
   {
     "kind": "testIt",
@@ -856,7 +856,7 @@
     "longname": "tests/integration_tests/auth_tests.js~describe0.describe1.it2",
     "access": null,
     "description": "should save state",
-    "lineNumber": 55
+    "lineNumber": 60
   },
   {
     "kind": "testIt",
@@ -869,7 +869,7 @@
     "longname": "tests/integration_tests/auth_tests.js~describe0.describe1.it3",
     "access": null,
     "description": "should save current step",
-    "lineNumber": 58
+    "lineNumber": 63
   },
   {
     "kind": "testIt",
@@ -882,7 +882,7 @@
     "longname": "tests/integration_tests/auth_tests.js~describe0.describe1.it4",
     "access": null,
     "description": "should receive a redirect",
-    "lineNumber": 61
+    "lineNumber": 66
   },
   {
     "kind": "testDescribe",
@@ -895,7 +895,7 @@
     "longname": "tests/integration_tests/auth_tests.js~describe0.describe5",
     "access": null,
     "description": "on return from github",
-    "lineNumber": 65
+    "lineNumber": 70
   },
   {
     "kind": "testIt",
@@ -908,6 +908,6 @@
     "longname": "tests/integration_tests/auth_tests.js~describe0.describe5.it6",
     "access": null,
     "description": "should save state",
-    "lineNumber": 115
+    "lineNumber": 122
   }
 ]

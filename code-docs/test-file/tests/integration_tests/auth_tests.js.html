@@ -62,13 +62,17 @@ import {
 from &apos;chai&apos;;
 import Nightmare from &apos;nightmare&apos;;
 import url from &apos;url&apos;;
+import os from &apos;os&apos;;
 
-describe(&apos;authorization steps&apos;, () =&gt; {
+let osType = os.type();
+describe(&apos;authorization steps&apos;, function () {
   let connector;
   let clientId = config.get(&apos;clientId&apos;);
   let clientSecret = config.get(&apos;clientSecret&apos;);
   let nightmare;
-  before(() =&gt; {
+
+  before(function () {
+
     nightmare = Nightmare();
     connector = new GitHubConnector({
       clientId,
@@ -81,7 +85,8 @@ describe(&apos;authorization steps&apos;, () =&gt; {
   })
   describe(&apos;on first bounce&apos;, () =&gt; {
     let bounce;
-    before(() =&gt; {
+    before(function () {
+
       bounce = {
         get: function () {
           return undefined;
@@ -119,11 +124,13 @@ describe(&apos;authorization steps&apos;, () =&gt; {
   });
   describe(&apos;on return from github&apos;, function () {
     let bounce;
-    this.timeout(10000);
+    this.timeout(50000);
     let uri;
 
-    before(() =&gt; {
-
+    before(function () {
+      if (osType === &apos;Linux&apos;) {
+        this.skip();
+      }
       bounce = {
         store: {},
         get: function (key) {

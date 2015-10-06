@@ -331,43 +331,43 @@ window.esdocSearchIndex = [
   ],
   [
     "",
-    "test-file/tests/integration_tests/auth_tests.js.html#lineNumber11",
+    "test-file/tests/integration_tests/auth_tests.js.html#lineNumber13",
     "authorization steps",
     "test"
   ],
   [
     "",
-    "test-file/tests/integration_tests/auth_tests.js.html#lineNumber27",
+    "test-file/tests/integration_tests/auth_tests.js.html#lineNumber31",
     "authorization steps on first bounce",
     "test"
   ],
   [
     "",
-    "test-file/tests/integration_tests/auth_tests.js.html#lineNumber61",
+    "test-file/tests/integration_tests/auth_tests.js.html#lineNumber66",
     "authorization steps on first bounce should receive a redirect",
     "test"
   ],
   [
     "",
-    "test-file/tests/integration_tests/auth_tests.js.html#lineNumber58",
+    "test-file/tests/integration_tests/auth_tests.js.html#lineNumber63",
     "authorization steps on first bounce should save current step",
     "test"
   ],
   [
     "",
-    "test-file/tests/integration_tests/auth_tests.js.html#lineNumber55",
+    "test-file/tests/integration_tests/auth_tests.js.html#lineNumber60",
     "authorization steps on first bounce should save state",
     "test"
   ],
   [
     "",
-    "test-file/tests/integration_tests/auth_tests.js.html#lineNumber65",
+    "test-file/tests/integration_tests/auth_tests.js.html#lineNumber70",
     "authorization steps on return from github",
     "test"
   ],
   [
     "",
-    "test-file/tests/integration_tests/auth_tests.js.html#lineNumber115",
+    "test-file/tests/integration_tests/auth_tests.js.html#lineNumber122",
     "authorization steps on return from github should save state",
     "test"
   ],

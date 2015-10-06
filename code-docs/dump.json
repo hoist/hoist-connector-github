@@ -9,7 +9,7 @@
     "access": null,
     "description": null,
     "lineNumber": 1,
-    "content": "import {\n  OAuth2ConnectorBase\n}\nfrom '@hoist/oauth-connector';\nimport {\n  merge\n}\nfrom 'lodash';\n\nlet overrides = {\n  baseSite: 'https://github.com/login'\n};\nlet apiBaseUri = 'https://api.github.com'\n  /**\n   * A Hoist Connector for connecting to GitHub\n   * @extends {OAuth2ConnectorBase}\n   */\nexport default class GitHubConnector extends OAuth2ConnectorBase {\n\n  /**\n   * create a new connector\n   * @param {object} configuration - the configuration properties to use\n   * @param {string} configuration.clientId - the OAuth2 client id\n   * @param {string} configuration.clientSecret - the OAuth2 client secret\n   */\n  constructor(configuration) {\n    super(merge({}, configuration, overrides));\n    this._clientId = configuration.clientId;\n  }\n\n  /**\n   * @private\n   * @param AuthorizationStore authorization the users authorisation store\n   * @returns Promise<object> an object containing key value pairs to send with the client to the authorization url\n   */\n  _authorizeParams(authorization) {\n    return super._authorizeParams(authorization)\n      .then((params) => {\n        return Promise.resolve(Math.round(Math.random() * 5000000))\n          .then((r) => {\n            return authorization.set('state', r).then(() => {\n              params.state = r;\n              return params;\n            });\n          });\n      });\n  }\n  get(path) {\n    let uri = `${apiBaseUri}${path}`;\n    return this._performRequest('GET', uri).then((result) => {\n      return JSON.parse(result[0]);\n    });\n  }\n}\n\n/**\n * @external {OAuth2ConnectorBase} https://github.com/hoist/oauth-connector/blob/master/src/oauth2_connector.js\n */\n"
+    "content": "import {\n  OAuth2ConnectorBase\n}\nfrom '@hoist/oauth-connector';\nimport {\n  merge\n}\nfrom 'lodash';\n\nlet overrides = {\n  baseSite: 'https://github.com/login'\n};\nlet apiBaseUri = 'https://api.github.com'\n  /**\n   * A Hoist Connector for connecting to GitHub\n   * @extends {OAuth2ConnectorBase}\n   */\nexport default class GitHubConnector extends OAuth2ConnectorBase {\n\n  /**\n   * create a new connector\n   * @param {object} configuration - the configuration properties to use\n   * @param {string} configuration.clientId - the OAuth2 client id\n   * @param {string} configuration.clientSecret - the OAuth2 client secret\n   * @param {string} [configuration.scope='user,repo,admin:repo_hook,notifications'] - a comma separated list of scopes to use @see https://developer.github.com/v3/oauth/#scopes\n   */\n  constructor(configuration) {\n    super(merge({}, configuration, overrides));\n    this._clientId = configuration.clientId;\n    this._scopeString = configuration.scope || 'user,repo,admin:repo_hook,notifications';\n  }\n\n  /**\n   * @private\n   * @param AuthorizationStore authorization the users authorisation store\n   * @returns Promise<object> an object containing key value pairs to send with the client to the authorization url\n   */\n  _authorizeParams(authorization) {\n    return super._authorizeParams(authorization)\n      .then((params) => {\n        return Promise.resolve(Math.round(Math.random() * 5000000))\n          .then((r) => {\n            return authorization.set('state', r).then(() => {\n              params.state = r;\n              params.scope = this._scopeString;\n              return params;\n            });\n          });\n      });\n  }\n  get(path) {\n    let uri = `${apiBaseUri}${path}`;\n    return this._performRequest('GET', uri).then((result) => {\n      return JSON.parse(result[0]);\n    });\n  }\n  post(path, body) {\n    let uri = `${apiBaseUri}${path}`;\n    return this._performRequest('POST', uri, body).then((result) => {\n      return JSON.parse(result[0]);\n    });\n  }\n  patch(path, body) {\n    let uri = `${apiBaseUri}${path}`;\n    return this._performRequest('PATCH', uri, body).then((result) => {\n      return JSON.parse(result[0]);\n    });\n  }\n  delete(path) {\n    let uri = `${apiBaseUri}${path}`;\n    return this._performRequest('DELETE', uri);\n  }\n}\n\n/**\n * @external {OAuth2ConnectorBase} https://github.com/hoist/oauth-connector/blob/master/src/oauth2_connector.js\n */\n"
   },
   {
     "kind": "variable",
@@ -89,7 +89,7 @@
     "longname": "src/connector.js~GitHubConnector#constructor",
     "access": null,
     "description": "create a new connector",
-    "lineNumber": 26,
+    "lineNumber": 27,
     "params": [
       {
         "nullable": null,
@@ -120,6 +120,18 @@
         "optional": false,
         "name": "configuration.clientSecret",
         "description": "the OAuth2 client secret"
+      },
+      {
+        "nullable": null,
+        "types": [
+          "string"
+        ],
+        "spread": false,
+        "optional": true,
+        "defaultValue": "'user,repo,admin:repo_hook,notifications'",
+        "defaultRaw": "'user,repo,admin:repo_hook,notifications'",
+        "name": "configuration.scope",
+        "description": "a comma separated list of scopes to use @see https://developer.github.com/v3/oauth/#scopes"
       }
     ],
     "generator": false
@@ -133,7 +145,24 @@
     "longname": "src/connector.js~GitHubConnector#_clientId",
     "access": null,
     "description": null,
-    "lineNumber": 28,
+    "lineNumber": 29,
+    "undocument": true,
+    "type": {
+      "types": [
+        "*"
+      ]
+    }
+  },
+  {
+    "kind": "member",
+    "static": false,
+    "variation": null,
+    "name": "_scopeString",
+    "memberof": "src/connector.js~GitHubConnector",
+    "longname": "src/connector.js~GitHubConnector#_scopeString",
+    "access": null,
+    "description": null,
+    "lineNumber": 30,
     "undocument": true,
     "type": {
       "types": [
@@ -150,7 +179,7 @@
     "longname": "src/connector.js~GitHubConnector#_authorizeParams",
     "access": "private",
     "description": null,
-    "lineNumber": 36,
+    "lineNumber": 38,
     "unknown": [
       {
         "tagName": "@returns",
@@ -188,7 +217,97 @@
     "longname": "src/connector.js~GitHubConnector#get",
     "access": null,
     "description": null,
-    "lineNumber": 48,
+    "lineNumber": 51,
+    "undocument": true,
+    "params": [
+      {
+        "name": "path",
+        "types": [
+          "*"
+        ]
+      }
+    ],
+    "return": {
+      "types": [
+        "*"
+      ]
+    },
+    "generator": false
+  },
+  {
+    "kind": "method",
+    "static": false,
+    "variation": null,
+    "name": "post",
+    "memberof": "src/connector.js~GitHubConnector",
+    "longname": "src/connector.js~GitHubConnector#post",
+    "access": null,
+    "description": null,
+    "lineNumber": 57,
+    "undocument": true,
+    "params": [
+      {
+        "name": "path",
+        "types": [
+          "*"
+        ]
+      },
+      {
+        "name": "body",
+        "types": [
+          "*"
+        ]
+      }
+    ],
+    "return": {
+      "types": [
+        "*"
+      ]
+    },
+    "generator": false
+  },
+  {
+    "kind": "method",
+    "static": false,
+    "variation": null,
+    "name": "patch",
+    "memberof": "src/connector.js~GitHubConnector",
+    "longname": "src/connector.js~GitHubConnector#patch",
+    "access": null,
+    "description": null,
+    "lineNumber": 63,
+    "undocument": true,
+    "params": [
+      {
+        "name": "path",
+        "types": [
+          "*"
+        ]
+      },
+      {
+        "name": "body",
+        "types": [
+          "*"
+        ]
+      }
+    ],
+    "return": {
+      "types": [
+        "*"
+      ]
+    },
+    "generator": false
+  },
+  {
+    "kind": "method",
+    "static": false,
+    "variation": null,
+    "name": "delete",
+    "memberof": "src/connector.js~GitHubConnector",
+    "longname": "src/connector.js~GitHubConnector#delete",
+    "access": null,
+    "description": null,
+    "lineNumber": 69,
     "undocument": true,
     "params": [
       {
@@ -863,7 +982,7 @@
     "access": null,
     "description": null,
     "lineNumber": 1,
-    "content": "import GitHubConnector from '../../lib/connector';\nimport sinon from 'sinon';\nimport config from 'config';\nimport {\n  expect\n}\nfrom 'chai';\nimport Nightmare from 'nightmare';\nimport url from 'url';\nimport os from 'os';\n\nlet osType = os.type();\ndescribe('authorization steps', function () {\n  let connector;\n  let clientId = config.get('clientId');\n  let clientSecret = config.get('clientSecret');\n  let nightmare;\n\n  before(function () {\n    if (osType !== 'Linux') {\n      nightmare = Nightmare();\n    }\n    connector = new GitHubConnector({\n      clientId,\n      clientSecret\n    });\n\n  });\n  after(function () {\n    if (osType !== 'Linux') {\n      return nightmare.end();\n    }\n  })\n  describe('on first bounce', () => {\n    let bounce;\n    before(function () {\n\n      bounce = {\n        get: function () {\n          return undefined;\n        },\n        delete: function () {\n          return Promise.resolve(null);\n        },\n        set: function () {\n          console.log('set', arguments);\n          return Promise.resolve(null);\n        },\n        redirect: function () {\n          console.log('redirect', arguments);\n          return Promise.resolve(null);\n        },\n        done: function () {\n          console.log('done', arguments);\n          return Promise.resolve(null);\n        }\n      };\n      sinon.spy(bounce, 'get');\n      sinon.spy(bounce, 'set');\n      sinon.spy(bounce, 'redirect');\n      return connector.receiveBounce(bounce);\n    });\n    it('should save state', () => {\n      return expect(bounce.set).to.have.been.calledWith('state');\n    });\n    it('should save current step', () => {\n      return expect(bounce.set).to.have.been.calledWith('currentStep', 'authorization');\n    });\n    it('should receive a redirect', () => {\n      return expect(bounce.redirect).to.have.been.calledWith(`https://github.com/login/oauth/authorize?redirect_uri=https%3A%2F%2Fbouncer.hoist.test%2Fbounce&state=${bounce.set.getCall(0).args[1]}&client_id=${clientId}`);\n    });\n  });\n  describe('on return from github', function () {\n    let bounce;\n    this.timeout(50000);\n    let uri;\n\n    before(function () {\n      if (osType === 'Linux') {\n        this.skip();\n      }\n      bounce = {\n        store: {},\n        get: function (key) {\n          return this.store[key];\n        },\n        delete: function (key) {\n          delete this.store[key];\n          return Promise.resolve(null);\n        },\n        set: function (key, value) {\n          this.store[key] = value;\n          return Promise.resolve(null);\n        },\n        redirect: function () {\n          console.log('redirect', arguments);\n          return Promise.resolve(null);\n        },\n        done: function () {\n          console.log('done', arguments);\n          return Promise.resolve(null);\n        }\n      };\n      sinon.spy(bounce, 'get');\n      sinon.spy(bounce, 'set');\n      sinon.spy(bounce, 'redirect');\n      return Promise.resolve(connector.receiveBounce(bounce))\n        .then(function () {\n          let authorizeUri = bounce.redirect.getCall(0).args[0];\n          return Promise.resolve(nightmare.goto(authorizeUri));\n        }).then(() => {\n          return Promise.resolve(nightmare.type('#login_field', config.get('username'))\n            .type('#password', config.get('password'))\n            .click('[name=\"commit\"]'));\n        }).then(() => {\n          return Promise.resolve(nightmare.wait('#message').url());\n        }).then((u) => {\n          uri = url.parse(u, true);\n          bounce.query = uri.query;\n        }).then(() => {\n          return connector.receiveBounce(bounce);\n        });\n\n    });\n    it('should save state', () => {\n      return expect(bounce.store['AccessToken']).to.exist;\n    });\n  })\n});\n"
+    "content": "import GitHubConnector from '../../lib/connector';\nimport sinon from 'sinon';\nimport config from 'config';\nimport {\n  expect\n}\nfrom 'chai';\nimport Nightmare from 'nightmare';\nimport url from 'url';\nimport os from 'os';\n\nlet osType = os.type();\ndescribe('authorization steps', function () {\n  let connector;\n  let clientId = config.get('clientId');\n  let clientSecret = config.get('clientSecret');\n  let nightmare;\n\n  before(function () {\n    if (osType !== 'Linux') {\n      nightmare = Nightmare();\n    }\n    connector = new GitHubConnector({\n      clientId,\n      clientSecret\n    });\n\n  });\n  after(function () {\n    if (osType !== 'Linux') {\n      return nightmare.end();\n    }\n  })\n  describe('on first bounce', () => {\n    let bounce;\n    before(function () {\n\n      bounce = {\n        get: function () {\n          return undefined;\n        },\n        delete: function () {\n          return Promise.resolve(null);\n        },\n        set: function () {\n          console.log('set', arguments);\n          return Promise.resolve(null);\n        },\n        redirect: function () {\n          console.log('redirect', arguments);\n          return Promise.resolve(null);\n        },\n        done: function () {\n          console.log('done', arguments);\n          return Promise.resolve(null);\n        }\n      };\n      sinon.spy(bounce, 'get');\n      sinon.spy(bounce, 'set');\n      sinon.spy(bounce, 'redirect');\n      return connector.receiveBounce(bounce);\n    });\n    it('should save state', () => {\n      return expect(bounce.set).to.have.been.calledWith('state');\n    });\n    it('should save current step', () => {\n      return expect(bounce.set).to.have.been.calledWith('currentStep', 'authorization');\n    });\n    it('should receive a redirect', () => {\n      return expect(bounce.redirect).to.have.been.calledWith(`https://github.com/login/oauth/authorize?redirect_uri=https%3A%2F%2Fbouncer.hoist.test%2Fbounce&state=${bounce.set.getCall(0).args[1]}&scope=user%2Crepo%2Cadmin%3Arepo_hook%2Cnotifications&client_id=${clientId}`);\n    });\n  });\n  describe('on return from github', function () {\n    let bounce;\n    this.timeout(50000);\n    let uri;\n\n    before(function () {\n      if (osType === 'Linux') {\n        this.skip();\n      }\n      bounce = {\n        store: {},\n        get: function (key) {\n          return this.store[key];\n        },\n        delete: function (key) {\n          delete this.store[key];\n          return Promise.resolve(null);\n        },\n        set: function (key, value) {\n          this.store[key] = value;\n          return Promise.resolve(null);\n        },\n        redirect: function () {\n          console.log('redirect', arguments);\n          return Promise.resolve(null);\n        },\n        done: function () {\n          console.log('done', arguments);\n          return Promise.resolve(null);\n        }\n      };\n      sinon.spy(bounce, 'get');\n      sinon.spy(bounce, 'set');\n      sinon.spy(bounce, 'redirect');\n      return Promise.resolve(connector.receiveBounce(bounce))\n        .then(function () {\n          let authorizeUri = bounce.redirect.getCall(0).args[0];\n          return Promise.resolve(nightmare.goto(authorizeUri));\n        }).then(() => {\n          return Promise.resolve(nightmare.type('#login_field', config.get('username'))\n            .type('#password', config.get('password'))\n            .click('[name=\"commit\"]'));\n        }).then(() => {\n          return Promise.resolve(nightmare.wait('#message').url());\n        }).then((u) => {\n          uri = url.parse(u, true);\n          bounce.query = uri.query;\n        }).then(() => {\n          return connector.receiveBounce(bounce);\n        });\n\n    });\n    it('should save state', () => {\n      //console.log(bounce.store['AccessToken']);\n      return expect(bounce.store['AccessToken']).to.exist;\n    });\n  })\n});\n"
   },
   {
     "kind": "testDescribe",
@@ -955,5 +1074,249 @@
     "access": null,
     "description": "should save state",
     "lineNumber": 125
+  },
+  {
+    "kind": "testFile",
+    "static": true,
+    "variation": null,
+    "name": "tests/integration_tests/issues_tests.js",
+    "memberof": null,
+    "longname": "tests/integration_tests/issues_tests.js",
+    "access": null,
+    "description": null,
+    "lineNumber": 1,
+    "content": "import GitHubConnector from '../../lib/connector';\nimport config from 'config';\nimport {\n  expect\n}\nfrom 'chai';\ndescribe('issues api', function () {\n  this.timeout(5000);\n  describe('post issue', () => {\n    let authorization;\n    let _result;\n    let connector;\n    let title = \"Issue created by Unit Test: \" + new Date();\n    before(() => {\n      authorization = {\n        store: {},\n        get: function (key) {\n          return this.store[key];\n        },\n        delete: function (key) {\n          delete this.store[key];\n          return Promise.resolve(null);\n        },\n        set: function (key, value) {\n          this.store[key] = value;\n          return Promise.resolve(null);\n        },\n        redirect: function () {\n          console.log('redirect', arguments);\n          return Promise.resolve(null);\n        },\n        done: function () {\n          console.log('done', arguments);\n          return Promise.resolve(null);\n        }\n      };\n      connector = new GitHubConnector({\n        clientId: config.get('clientId'),\n        clientSecret: config.get('clientSecret')\n      });\n      authorization.set('AccessToken', config.get('accessToken'));\n      connector.authorize(authorization)\n      return connector.post('/repos/hoist-bot/test-repo/issues', {\n          \"title\": title,\n          \"body\": \"This is a test issue from the Hoist connector unit tests\"\n        })\n        .then((result) => {\n          _result = result;\n        });\n\n    });\n    it('returns correct response', () => {\n      return expect(_result.title).to.eql(title);\n    });\n  });\n  describe('get issues', () => {\n    let authorization;\n    let _result;\n    let connector;\n    before(() => {\n      authorization = {\n        store: {},\n        get: function (key) {\n          return this.store[key];\n        },\n        delete: function (key) {\n          delete this.store[key];\n          return Promise.resolve(null);\n        },\n        set: function (key, value) {\n          this.store[key] = value;\n          return Promise.resolve(null);\n        },\n        redirect: function () {\n          console.log('redirect', arguments);\n          return Promise.resolve(null);\n        },\n        done: function () {\n          console.log('done', arguments);\n          return Promise.resolve(null);\n        }\n      };\n      connector = new GitHubConnector({\n        clientId: config.get('clientId'),\n        clientSecret: config.get('clientSecret')\n      });\n      authorization.set('AccessToken', config.get('accessToken'));\n      connector.authorize(authorization)\n      return connector.get('/repos/hoist-bot/test-repo/issues')\n        .then((result) => {\n          _result = result;\n        });\n\n    });\n    it('returns correct response', () => {\n      return expect(_result.length).to.be.greaterThan(0);\n    });\n  });\n  describe('patch issue', () => {\n    let authorization;\n    let _result;\n    let connector;\n    before(() => {\n      authorization = {\n        store: {},\n        get: function (key) {\n          return this.store[key];\n        },\n        delete: function (key) {\n          delete this.store[key];\n          return Promise.resolve(null);\n        },\n        set: function (key, value) {\n          this.store[key] = value;\n          return Promise.resolve(null);\n        },\n        redirect: function () {\n          console.log('redirect', arguments);\n          return Promise.resolve(null);\n        },\n        done: function () {\n          console.log('done', arguments);\n          return Promise.resolve(null);\n        }\n      };\n      connector = new GitHubConnector({\n        clientId: config.get('clientId'),\n        clientSecret: config.get('clientSecret')\n      });\n      authorization.set('AccessToken', config.get('accessToken'));\n      connector.authorize(authorization)\n\n      return connector.get('/repos/hoist-bot/test-repo/issues?state=open')\n        .then((r) => {\n          let uri = `/repos/hoist-bot/test-repo/issues/${r[0].number}`\n          return connector.patch(uri, {\n              \"state\": \"closed\"\n            })\n            .then((result) => {\n              _result = result;\n            }).catch((err) => {\n              console.log(err);\n            });\n        });\n\n\n    });\n    it('returns correct response', () => {\n      return expect(_result.state).to.eql('closed');\n    });\n  });\n});\n"
+  },
+  {
+    "kind": "testDescribe",
+    "static": true,
+    "variation": null,
+    "name": "describe7",
+    "testId": 7,
+    "memberof": "tests/integration_tests/issues_tests.js",
+    "testDepth": 0,
+    "longname": "tests/integration_tests/issues_tests.js~describe7",
+    "access": null,
+    "description": "issues api",
+    "lineNumber": 7
+  },
+  {
+    "kind": "testDescribe",
+    "static": true,
+    "variation": null,
+    "name": "describe8",
+    "testId": 8,
+    "memberof": "tests/integration_tests/issues_tests.js~describe7",
+    "testDepth": 1,
+    "longname": "tests/integration_tests/issues_tests.js~describe7.describe8",
+    "access": null,
+    "description": "post issue",
+    "lineNumber": 9
+  },
+  {
+    "kind": "testIt",
+    "static": true,
+    "variation": null,
+    "name": "it9",
+    "testId": 9,
+    "memberof": "tests/integration_tests/issues_tests.js~describe7.describe8",
+    "testDepth": 2,
+    "longname": "tests/integration_tests/issues_tests.js~describe7.describe8.it9",
+    "access": null,
+    "description": "returns correct response",
+    "lineNumber": 52
+  },
+  {
+    "kind": "testDescribe",
+    "static": true,
+    "variation": null,
+    "name": "describe10",
+    "testId": 10,
+    "memberof": "tests/integration_tests/issues_tests.js~describe7",
+    "testDepth": 1,
+    "longname": "tests/integration_tests/issues_tests.js~describe7.describe10",
+    "access": null,
+    "description": "get issues",
+    "lineNumber": 56
+  },
+  {
+    "kind": "testIt",
+    "static": true,
+    "variation": null,
+    "name": "it11",
+    "testId": 11,
+    "memberof": "tests/integration_tests/issues_tests.js~describe7.describe10",
+    "testDepth": 2,
+    "longname": "tests/integration_tests/issues_tests.js~describe7.describe10.it11",
+    "access": null,
+    "description": "returns correct response",
+    "lineNumber": 95
+  },
+  {
+    "kind": "testDescribe",
+    "static": true,
+    "variation": null,
+    "name": "describe12",
+    "testId": 12,
+    "memberof": "tests/integration_tests/issues_tests.js~describe7",
+    "testDepth": 1,
+    "longname": "tests/integration_tests/issues_tests.js~describe7.describe12",
+    "access": null,
+    "description": "patch issue",
+    "lineNumber": 99
+  },
+  {
+    "kind": "testIt",
+    "static": true,
+    "variation": null,
+    "name": "it13",
+    "testId": 13,
+    "memberof": "tests/integration_tests/issues_tests.js~describe7.describe12",
+    "testDepth": 2,
+    "longname": "tests/integration_tests/issues_tests.js~describe7.describe12.it13",
+    "access": null,
+    "description": "returns correct response",
+    "lineNumber": 148
+  },
+  {
+    "kind": "testFile",
+    "static": true,
+    "variation": null,
+    "name": "tests/integration_tests/repositories_tests.js",
+    "memberof": null,
+    "longname": "tests/integration_tests/repositories_tests.js",
+    "access": null,
+    "description": null,
+    "lineNumber": 1,
+    "content": "import GitHubConnector from '../../lib/connector';\nimport config from 'config';\nimport {\n  expect\n}\nfrom 'chai';\ndescribe('get repositories', () => {\n  let authorization;\n  let _result;\n  let connector;\n  before(() => {\n    authorization = {\n      store: {},\n      get: function (key) {\n        return this.store[key];\n      },\n      delete: function (key) {\n        delete this.store[key];\n        return Promise.resolve(null);\n      },\n      set: function (key, value) {\n        this.store[key] = value;\n        return Promise.resolve(null);\n      },\n      redirect: function () {\n        console.log('redirect', arguments);\n        return Promise.resolve(null);\n      },\n      done: function () {\n        console.log('done', arguments);\n        return Promise.resolve(null);\n      }\n    };\n    connector = new GitHubConnector({\n      clientId: config.get('clientId'),\n      clientSecret: config.get('clientSecret')\n    });\n    authorization.set('AccessToken', config.get('accessToken'));\n    connector.authorize(authorization)\n    return connector.get('/user/repos')\n      .then((result) => {\n        _result = result;\n      });\n\n  });\n  it('returns public and private repositories', () => {\n    return expect(_result.map((repo) => repo.name)).to.contain('test-repo', 'api.hoi.io');\n  });\n});\n"
+  },
+  {
+    "kind": "testDescribe",
+    "static": true,
+    "variation": null,
+    "name": "describe14",
+    "testId": 14,
+    "memberof": "tests/integration_tests/repositories_tests.js",
+    "testDepth": 0,
+    "longname": "tests/integration_tests/repositories_tests.js~describe14",
+    "access": null,
+    "description": "get repositories",
+    "lineNumber": 7
+  },
+  {
+    "kind": "testIt",
+    "static": true,
+    "variation": null,
+    "name": "it15",
+    "testId": 15,
+    "memberof": "tests/integration_tests/repositories_tests.js~describe14",
+    "testDepth": 1,
+    "longname": "tests/integration_tests/repositories_tests.js~describe14.it15",
+    "access": null,
+    "description": "returns public and private repositories",
+    "lineNumber": 46
+  },
+  {
+    "kind": "testFile",
+    "static": true,
+    "variation": null,
+    "name": "tests/integration_tests/webhook_tests.js",
+    "memberof": null,
+    "longname": "tests/integration_tests/webhook_tests.js",
+    "access": null,
+    "description": null,
+    "lineNumber": 1,
+    "content": "import GitHubConnector from '../../lib/connector';\nimport config from 'config';\nimport {\n  expect\n}\nfrom 'chai';\ndescribe('webhook api', function () {\n  this.timeout(5000);\n  describe('create a webhook', () => {\n    let authorization;\n    let _result;\n    let connector;\n    let title = \"Issue created by Unit Test: \" + new Date();\n    before(() => {\n      authorization = {\n        store: {},\n        get: function (key) {\n          return this.store[key];\n        },\n        delete: function (key) {\n          delete this.store[key];\n          return Promise.resolve(null);\n        },\n        set: function (key, value) {\n          this.store[key] = value;\n          return Promise.resolve(null);\n        },\n        redirect: function () {\n          console.log('redirect', arguments);\n          return Promise.resolve(null);\n        },\n        done: function () {\n          console.log('done', arguments);\n          return Promise.resolve(null);\n        }\n      };\n      connector = new GitHubConnector({\n        clientId: config.get('clientId'),\n        clientSecret: config.get('clientSecret')\n      });\n      authorization.set('AccessToken', config.get('accessToken'));\n      connector.authorize(authorization)\n      return connector.post('/repos/hoist-bot/test-repo/hooks', {\n          \"name\": 'web',\n          \"config\": {\n            \"url\": \"https://endpoint.hoi.test/test-hook-\" + Math.random() * 2000,\n            \"content_type\": \"json\"\n          },\n          \"events\": [\n            \"*\"\n          ]\n        })\n        .then((result) => {\n          _result = result;\n        });\n\n    });\n    it('creates the webhook', () => {\n      return expect(_result.name).to.eql('web');\n    });\n  });\n  describe('list webhook', () => {\n    let authorization;\n    let _result;\n    let connector;\n    let title = \"Issue created by Unit Test: \" + new Date();\n    before(() => {\n      authorization = {\n        store: {},\n        get: function (key) {\n          return this.store[key];\n        },\n        delete: function (key) {\n          delete this.store[key];\n          return Promise.resolve(null);\n        },\n        set: function (key, value) {\n          this.store[key] = value;\n          return Promise.resolve(null);\n        },\n        redirect: function () {\n          console.log('redirect', arguments);\n          return Promise.resolve(null);\n        },\n        done: function () {\n          console.log('done', arguments);\n          return Promise.resolve(null);\n        }\n      };\n      connector = new GitHubConnector({\n        clientId: config.get('clientId'),\n        clientSecret: config.get('clientSecret')\n      });\n      authorization.set('AccessToken', config.get('accessToken'));\n      connector.authorize(authorization)\n      return connector.get('/repos/hoist-bot/test-repo/hooks')\n        .then((result) => {\n          _result = result;\n        });\n\n    });\n    it('returns the webhook', () => {\n      return expect(_result.length).to.be.greaterThan(0);\n    });\n  });\n  describe('delete webhook', () => {\n    let authorization;\n    let _result;\n    let connector;\n    let title = \"Issue created by Unit Test: \" + new Date();\n    before(() => {\n      authorization = {\n        store: {},\n        get: function (key) {\n          return this.store[key];\n        },\n        delete: function (key) {\n          delete this.store[key];\n          return Promise.resolve(null);\n        },\n        set: function (key, value) {\n          this.store[key] = value;\n          return Promise.resolve(null);\n        },\n        redirect: function () {\n          console.log('redirect', arguments);\n          return Promise.resolve(null);\n        },\n        done: function () {\n          console.log('done', arguments);\n          return Promise.resolve(null);\n        }\n      };\n      connector = new GitHubConnector({\n        clientId: config.get('clientId'),\n        clientSecret: config.get('clientSecret')\n      });\n      authorization.set('AccessToken', config.get('accessToken'));\n      connector.authorize(authorization)\n      return connector.get('/repos/hoist-bot/test-repo/hooks')\n        .then((result) => {\n          var uri = `/repos/hoist-bot/test-repo/hooks/${result[0].id}`\n          console.log(uri);\n          return connector.delete(uri);\n        }).then((result) => {\n          _result = result;\n        });\n\n    });\n    it('returns the webhook', () => {\n      return expect(_result[0]).to.eql('');\n    });\n  });\n});\n"
+  },
+  {
+    "kind": "testDescribe",
+    "static": true,
+    "variation": null,
+    "name": "describe16",
+    "testId": 16,
+    "memberof": "tests/integration_tests/webhook_tests.js",
+    "testDepth": 0,
+    "longname": "tests/integration_tests/webhook_tests.js~describe16",
+    "access": null,
+    "description": "webhook api",
+    "lineNumber": 7
+  },
+  {
+    "kind": "testDescribe",
+    "static": true,
+    "variation": null,
+    "name": "describe17",
+    "testId": 17,
+    "memberof": "tests/integration_tests/webhook_tests.js~describe16",
+    "testDepth": 1,
+    "longname": "tests/integration_tests/webhook_tests.js~describe16.describe17",
+    "access": null,
+    "description": "create a webhook",
+    "lineNumber": 9
+  },
+  {
+    "kind": "testIt",
+    "static": true,
+    "variation": null,
+    "name": "it18",
+    "testId": 18,
+    "memberof": "tests/integration_tests/webhook_tests.js~describe16.describe17",
+    "testDepth": 2,
+    "longname": "tests/integration_tests/webhook_tests.js~describe16.describe17.it18",
+    "access": null,
+    "description": "creates the webhook",
+    "lineNumber": 58
+  },
+  {
+    "kind": "testDescribe",
+    "static": true,
+    "variation": null,
+    "name": "describe19",
+    "testId": 19,
+    "memberof": "tests/integration_tests/webhook_tests.js~describe16",
+    "testDepth": 1,
+    "longname": "tests/integration_tests/webhook_tests.js~describe16.describe19",
+    "access": null,
+    "description": "list webhook",
+    "lineNumber": 62
+  },
+  {
+    "kind": "testIt",
+    "static": true,
+    "variation": null,
+    "name": "it20",
+    "testId": 20,
+    "memberof": "tests/integration_tests/webhook_tests.js~describe16.describe19",
+    "testDepth": 2,
+    "longname": "tests/integration_tests/webhook_tests.js~describe16.describe19.it20",
+    "access": null,
+    "description": "returns the webhook",
+    "lineNumber": 102
+  },
+  {
+    "kind": "testDescribe",
+    "static": true,
+    "variation": null,
+    "name": "describe21",
+    "testId": 21,
+    "memberof": "tests/integration_tests/webhook_tests.js~describe16",
+    "testDepth": 1,
+    "longname": "tests/integration_tests/webhook_tests.js~describe16.describe21",
+    "access": null,
+    "description": "delete webhook",
+    "lineNumber": 106
+  },
+  {
+    "kind": "testIt",
+    "static": true,
+    "variation": null,
+    "name": "it22",
+    "testId": 22,
+    "memberof": "tests/integration_tests/webhook_tests.js~describe16.describe21",
+    "testDepth": 2,
+    "longname": "tests/integration_tests/webhook_tests.js~describe16.describe21.it22",
+    "access": null,
+    "description": "returns the webhook",
+    "lineNumber": 150
   }
 ]

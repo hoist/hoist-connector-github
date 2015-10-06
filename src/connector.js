@@ -22,10 +22,12 @@ export default class GitHubConnector extends OAuth2ConnectorBase {
    * @param {object} configuration - the configuration properties to use
    * @param {string} configuration.clientId - the OAuth2 client id
    * @param {string} configuration.clientSecret - the OAuth2 client secret
+   * @param {string} [configuration.scope='user,repo,admin:repo_hook,notifications'] - a comma separated list of scopes to use @see https://developer.github.com/v3/oauth/#scopes
    */
   constructor(configuration) {
     super(merge({}, configuration, overrides));
     this._clientId = configuration.clientId;
+    this._scopeString = configuration.scope || 'user,repo,admin:repo_hook,notifications';
   }
 
   /**
@@ -40,6 +42,7 @@ export default class GitHubConnector extends OAuth2ConnectorBase {
           .then((r) => {
             return authorization.set('state', r).then(() => {
               params.state = r;
+              params.scope = this._scopeString;
               return params;
             });
           });
@@ -50,6 +53,22 @@ export default class GitHubConnector extends OAuth2ConnectorBase {
     return this._performRequest('GET', uri).then((result) => {
       return JSON.parse(result[0]);
     });
+  }
+  post(path, body) {
+    let uri = `${apiBaseUri}${path}`;
+    return this._performRequest('POST', uri, body).then((result) => {
+      return JSON.parse(result[0]);
+    });
+  }
+  patch(path, body) {
+    let uri = `${apiBaseUri}${path}`;
+    return this._performRequest('PATCH', uri, body).then((result) => {
+      return JSON.parse(result[0]);
+    });
+  }
+  delete(path) {
+    let uri = `${apiBaseUri}${path}`;
+    return this._performRequest('DELETE', uri);
   }
 }
 

@@ -372,6 +372,60 @@ window.esdocSearchIndex = [
     "test"
   ],
   [
+    "",
+    "test-file/tests/integration_tests/repositories_tests.js.html#lineNumber7",
+    "get repositories",
+    "test"
+  ],
+  [
+    "",
+    "test-file/tests/integration_tests/repositories_tests.js.html#lineNumber46",
+    "get repositories returns public and private repositories",
+    "test"
+  ],
+  [
+    "",
+    "test-file/tests/integration_tests/issues_tests.js.html#lineNumber7",
+    "issues api",
+    "test"
+  ],
+  [
+    "",
+    "test-file/tests/integration_tests/issues_tests.js.html#lineNumber56",
+    "issues api get issues",
+    "test"
+  ],
+  [
+    "",
+    "test-file/tests/integration_tests/issues_tests.js.html#lineNumber95",
+    "issues api get issues returns correct response",
+    "test"
+  ],
+  [
+    "",
+    "test-file/tests/integration_tests/issues_tests.js.html#lineNumber99",
+    "issues api patch issue",
+    "test"
+  ],
+  [
+    "",
+    "test-file/tests/integration_tests/issues_tests.js.html#lineNumber148",
+    "issues api patch issue returns correct response",
+    "test"
+  ],
+  [
+    "",
+    "test-file/tests/integration_tests/issues_tests.js.html#lineNumber9",
+    "issues api post issue",
+    "test"
+  ],
+  [
+    "",
+    "test-file/tests/integration_tests/issues_tests.js.html#lineNumber52",
+    "issues api post issue returns correct response",
+    "test"
+  ],
+  [
     "src/connector.js",
     "file/src/connector.js.html",
     "src/connector.js",
@@ -384,9 +438,27 @@ window.esdocSearchIndex = [
     "method"
   ],
   [
+    "src/connector.js~githubconnector#delete",
+    "class/src/connector.js~GitHubConnector.html#instance-method-delete",
+    "src/connector.js~GitHubConnector#delete",
+    "method"
+  ],
+  [
     "src/connector.js~githubconnector#get",
     "class/src/connector.js~GitHubConnector.html#instance-method-get",
     "src/connector.js~GitHubConnector#get",
+    "method"
+  ],
+  [
+    "src/connector.js~githubconnector#patch",
+    "class/src/connector.js~GitHubConnector.html#instance-method-patch",
+    "src/connector.js~GitHubConnector#patch",
+    "method"
+  ],
+  [
+    "src/connector.js~githubconnector#post",
+    "class/src/connector.js~GitHubConnector.html#instance-method-post",
+    "src/connector.js~GitHubConnector#post",
     "method"
   ],
   [
@@ -400,5 +472,65 @@ window.esdocSearchIndex = [
     "test-file/tests/integration_tests/auth_tests.js.html",
     "tests/integration_tests/auth_tests.js",
     "testFile"
+  ],
+  [
+    "tests/integration_tests/issues_tests.js",
+    "test-file/tests/integration_tests/issues_tests.js.html",
+    "tests/integration_tests/issues_tests.js",
+    "testFile"
+  ],
+  [
+    "tests/integration_tests/repositories_tests.js",
+    "test-file/tests/integration_tests/repositories_tests.js.html",
+    "tests/integration_tests/repositories_tests.js",
+    "testFile"
+  ],
+  [
+    "tests/integration_tests/webhook_tests.js",
+    "test-file/tests/integration_tests/webhook_tests.js.html",
+    "tests/integration_tests/webhook_tests.js",
+    "testFile"
+  ],
+  [
+    "",
+    "test-file/tests/integration_tests/webhook_tests.js.html#lineNumber7",
+    "webhook api",
+    "test"
+  ],
+  [
+    "",
+    "test-file/tests/integration_tests/webhook_tests.js.html#lineNumber9",
+    "webhook api create a webhook",
+    "test"
+  ],
+  [
+    "",
+    "test-file/tests/integration_tests/webhook_tests.js.html#lineNumber58",
+    "webhook api create a webhook creates the webhook",
+    "test"
+  ],
+  [
+    "",
+    "test-file/tests/integration_tests/webhook_tests.js.html#lineNumber106",
+    "webhook api delete webhook",
+    "test"
+  ],
+  [
+    "",
+    "test-file/tests/integration_tests/webhook_tests.js.html#lineNumber150",
+    "webhook api delete webhook returns the webhook",
+    "test"
+  ],
+  [
+    "",
+    "test-file/tests/integration_tests/webhook_tests.js.html#lineNumber62",
+    "webhook api list webhook",
+    "test"
+  ],
+  [
+    "",
+    "test-file/tests/integration_tests/webhook_tests.js.html#lineNumber102",
+    "webhook api list webhook returns the webhook",
+    "test"
   ]
 ]

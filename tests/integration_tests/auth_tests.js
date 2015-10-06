@@ -67,7 +67,7 @@ describe('authorization steps', function () {
       return expect(bounce.set).to.have.been.calledWith('currentStep', 'authorization');
     });
     it('should receive a redirect', () => {
-      return expect(bounce.redirect).to.have.been.calledWith(`https://github.com/login/oauth/authorize?redirect_uri=https%3A%2F%2Fbouncer.hoist.test%2Fbounce&state=${bounce.set.getCall(0).args[1]}&client_id=${clientId}`);
+      return expect(bounce.redirect).to.have.been.calledWith(`https://github.com/login/oauth/authorize?redirect_uri=https%3A%2F%2Fbouncer.hoist.test%2Fbounce&state=${bounce.set.getCall(0).args[1]}&scope=user%2Crepo%2Cadmin%3Arepo_hook%2Cnotifications&client_id=${clientId}`);
     });
   });
   describe('on return from github', function () {
@@ -123,6 +123,7 @@ describe('authorization steps', function () {
 
     });
     it('should save state', () => {
+      //console.log(bounce.store['AccessToken']);
       return expect(bounce.store['AccessToken']).to.exist;
     });
   })

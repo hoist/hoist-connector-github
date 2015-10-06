@@ -1,13 +1,16 @@
 {
-  "coverage": "66.66%",
-  "expectCount": 3,
+  "coverage": "33.33%",
+  "expectCount": 6,
   "actualCount": 2,
   "files": {
     "src/connector.js": {
-      "expectCount": 3,
+      "expectCount": 6,
       "actualCount": 2,
       "undocumentLines": [
-        48
+        69,
+        51,
+        63,
+        57
       ]
     }
   }

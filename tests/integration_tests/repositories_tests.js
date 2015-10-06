@@ -1,7 +1,10 @@
 import GitHubConnector from '../../lib/connector';
 import config from 'config';
-import {expect} from 'chai';
-describe.only('get repositories', () => {
+import {
+  expect
+}
+from 'chai';
+describe('get repositories', () => {
   let authorization;
   let _result;
   let connector;
@@ -40,7 +43,7 @@ describe.only('get repositories', () => {
       });
 
   });
-  it('returns the one public repository', () => {
-    return expect(_result.length).to.eql(1)
+  it('returns public and private repositories', () => {
+    return expect(_result.map((repo) => repo.name)).to.contain('test-repo', 'api.hoi.io');
   });
 });

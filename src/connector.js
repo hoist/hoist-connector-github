@@ -10,11 +10,11 @@ from 'lodash';
 let overrides = {
   baseSite: 'https://github.com/login'
 };
-
-/**
- * A Hoist Connector for connecting to GitHub
- * @extends {OAuth2ConnectorBase}
- */
+let apiBaseUri = 'https://api.github.com'
+  /**
+   * A Hoist Connector for connecting to GitHub
+   * @extends {OAuth2ConnectorBase}
+   */
 export default class GitHubConnector extends OAuth2ConnectorBase {
 
   /**
@@ -44,6 +44,12 @@ export default class GitHubConnector extends OAuth2ConnectorBase {
             });
           });
       });
+  }
+  get(path) {
+    let uri = `${apiBaseUri}${path}`;
+    return this._performRequest('GET', uri).then((result) => {
+      return JSON.parse(result[0]);
+    });
   }
 }
 

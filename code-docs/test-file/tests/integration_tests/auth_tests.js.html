@@ -72,8 +72,9 @@ describe(&apos;authorization steps&apos;, function () {
   let nightmare;
 
   before(function () {
-
-    nightmare = Nightmare();
+    if (osType !== &apos;Linux&apos;) {
+      nightmare = Nightmare();
+    }
     connector = new GitHubConnector({
       clientId,
       clientSecret
@@ -81,7 +82,9 @@ describe(&apos;authorization steps&apos;, function () {
 
   });
   after(function () {
-    return nightmare.end();
+    if (osType !== &apos;Linux&apos;) {
+      return nightmare.end();
+    }
   })
   describe(&apos;on first bounce&apos;, () =&gt; {
     let bounce;

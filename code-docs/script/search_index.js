@@ -337,37 +337,37 @@ window.esdocSearchIndex = [
   ],
   [
     "",
-    "test-file/tests/integration_tests/auth_tests.js.html#lineNumber31",
+    "test-file/tests/integration_tests/auth_tests.js.html#lineNumber34",
     "authorization steps on first bounce",
     "test"
   ],
   [
     "",
-    "test-file/tests/integration_tests/auth_tests.js.html#lineNumber66",
+    "test-file/tests/integration_tests/auth_tests.js.html#lineNumber69",
     "authorization steps on first bounce should receive a redirect",
     "test"
   ],
   [
     "",
-    "test-file/tests/integration_tests/auth_tests.js.html#lineNumber63",
+    "test-file/tests/integration_tests/auth_tests.js.html#lineNumber66",
     "authorization steps on first bounce should save current step",
     "test"
   ],
   [
     "",
-    "test-file/tests/integration_tests/auth_tests.js.html#lineNumber60",
+    "test-file/tests/integration_tests/auth_tests.js.html#lineNumber63",
     "authorization steps on first bounce should save state",
     "test"
   ],
   [
     "",
-    "test-file/tests/integration_tests/auth_tests.js.html#lineNumber70",
+    "test-file/tests/integration_tests/auth_tests.js.html#lineNumber73",
     "authorization steps on return from github",
     "test"
   ],
   [
     "",
-    "test-file/tests/integration_tests/auth_tests.js.html#lineNumber122",
+    "test-file/tests/integration_tests/auth_tests.js.html#lineNumber125",
     "authorization steps on return from github should save state",
     "test"
   ],
@@ -381,6 +381,12 @@ window.esdocSearchIndex = [
     "src/connector.js~githubconnector#constructor",
     "class/src/connector.js~GitHubConnector.html#instance-constructor-constructor",
     "src/connector.js~GitHubConnector#constructor",
+    "method"
+  ],
+  [
+    "src/connector.js~githubconnector#get",
+    "class/src/connector.js~GitHubConnector.html#instance-method-get",
+    "src/connector.js~GitHubConnector#get",
     "method"
   ],
   [

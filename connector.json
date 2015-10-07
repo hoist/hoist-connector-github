@@ -34,5 +34,10 @@
   "samples": {
     "getting_started": "./samples/gettingStarted.js"
   },
-  "endpoints": {}
+  "endpoints": {
+    "Event": {
+      "subscribe": true,
+      "events": ["new"]
+    }
+  }
 }

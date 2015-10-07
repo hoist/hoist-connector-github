@@ -22,7 +22,7 @@ export default class GitHubConnector extends OAuth2ConnectorBase {
    * @param {object} configuration - the configuration properties to use
    * @param {string} configuration.clientId - the OAuth2 client id
    * @param {string} configuration.clientSecret - the OAuth2 client secret
-   * @param {string} [configuration.scope='user,repo,admin:repo_hook,notifications'] - a comma separated list of scopes to use @see https://developer.github.com/v3/oauth/#scopes
+   * @param {string} [configuration.scope='user,repo,admin:repo_hook,notifications'] - a comma separated list of scopes to use https://developer.github.com/v3/oauth/#scopes
    */
   constructor(configuration) {
     super(merge({}, configuration, overrides));
@@ -73,5 +73,5 @@ export default class GitHubConnector extends OAuth2ConnectorBase {
 }
 
 /**
- * @external {OAuth2ConnectorBase} https://github.com/hoist/oauth-connector/blob/master/src/oauth2_connector.js
+ * @external {OAuth2ConnectorBase} https://doc.esdoc.org/github.com/hoist/oauth-connector/class/src/oauth2_connector.js~OAuth2ConnectorBase.html
  */

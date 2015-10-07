@@ -43,7 +43,7 @@
   },
   "homepage": "https://github.com/hoist/hoist-connector-github",
   "dependencies": {
-    "@hoist/oauth-connector": "^1.0.4",
+    "@hoist/oauth-connector": "^1.0.5",
     "bluebird": "^2.9.34",
     "lodash": "^3.10.1"
   }

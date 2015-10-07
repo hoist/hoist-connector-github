@@ -140,7 +140,6 @@ describe('webhook api', function () {
       return connector.get('/repos/hoist-bot/test-repo/hooks')
         .then((result) => {
           var uri = `/repos/hoist-bot/test-repo/hooks/${result[0].id}`
-          console.log(uri);
           return connector.delete(uri);
         }).then((result) => {
           _result = result;

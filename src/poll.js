@@ -65,7 +65,7 @@ class GitHubPoller {
         return this._connector.authorize(this._context.authorization);
       }).then(() => {
         this._logger.info('creating webhook endpoint');
-        let hookUri = `https://${config.get('Hoist.domains.endpoint')}/${this._context.organisation.slug}/${this._context.application.slug}/github-incoming`;
+        let hookUri = `https://${config.get('Hoist.domains.endpoint')}/${this._context.organisation.slug}/${this._context.application.slug}/${this.context.connectorKey}-incoming`;
         this._connector.post(`/repos/${this._context.authorization.get('SubscriptionRepository')}/hooks`, {
           "name": 'web',
           "config": {

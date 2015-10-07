@@ -24,6 +24,12 @@
     "description": "Client Secret",
     "for_types": ["Public"],
     "required": true
+  }, {
+    "key": "scope",
+    "type": "text",
+    "description": "Comma separated list of scopes see https://developer.github.com/v3/oauth/#scopes",
+    "for_types": ["Public"],
+    "required": true
   }],
   "samples": {
     "getting_started": "./samples/gettingStarted.js"

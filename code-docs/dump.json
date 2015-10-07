@@ -9,7 +9,7 @@
     "access": null,
     "description": null,
     "lineNumber": 1,
-    "content": "import {\n  OAuth2ConnectorBase\n}\nfrom '@hoist/oauth-connector';\nimport {\n  merge\n}\nfrom 'lodash';\n\nlet overrides = {\n  baseSite: 'https://github.com/login'\n};\nlet apiBaseUri = 'https://api.github.com'\n  /**\n   * A Hoist Connector for connecting to GitHub\n   * @extends {OAuth2ConnectorBase}\n   */\nexport default class GitHubConnector extends OAuth2ConnectorBase {\n\n  /**\n   * create a new connector\n   * @param {object} configuration - the configuration properties to use\n   * @param {string} configuration.clientId - the OAuth2 client id\n   * @param {string} configuration.clientSecret - the OAuth2 client secret\n   * @param {string} [configuration.scope='user,repo,admin:repo_hook,notifications'] - a comma separated list of scopes to use https://developer.github.com/v3/oauth/#scopes\n   */\n  constructor(configuration) {\n    super(merge({}, configuration, overrides));\n    this._clientId = configuration.clientId;\n    this._scopeString = configuration.scope || 'user,repo,admin:repo_hook,notifications';\n  }\n\n  /**\n   * @private\n   * @param AuthorizationStore authorization the users authorisation store\n   * @returns Promise<object> an object containing key value pairs to send with the client to the authorization url\n   */\n  _authorizeParams(authorization) {\n    return super._authorizeParams(authorization)\n      .then((params) => {\n        return Promise.resolve(Math.round(Math.random() * 5000000))\n          .then((r) => {\n            return authorization.set('state', r).then(() => {\n              params.state = r;\n              params.scope = this._scopeString;\n              return params;\n            });\n          });\n      });\n  }\n  get(path) {\n    let uri = `${apiBaseUri}${path}`;\n    return this._performRequest('GET', uri).then((result) => {\n      return JSON.parse(result[0]);\n    });\n  }\n  post(path, body) {\n    let uri = `${apiBaseUri}${path}`;\n    return this._performRequest('POST', uri, body).then((result) => {\n      return JSON.parse(result[0]);\n    });\n  }\n  patch(path, body) {\n    let uri = `${apiBaseUri}${path}`;\n    return this._performRequest('PATCH', uri, body).then((result) => {\n      return JSON.parse(result[0]);\n    });\n  }\n  delete(path) {\n    let uri = `${apiBaseUri}${path}`;\n    return this._performRequest('DELETE', uri);\n  }\n}\n\n/**\n * @external {OAuth2ConnectorBase} https://doc.esdoc.org/github.com/hoist/oauth-connector/class/src/oauth2_connector.js~OAuth2ConnectorBase.html\n */\n"
+    "content": "import {\n  OAuth2ConnectorBase\n}\nfrom '@hoist/oauth-connector';\nimport {\n  merge\n}\nfrom 'lodash';\n\nlet overrides = {\n  baseSite: 'https://github.com/login'\n};\nlet apiBaseUri = 'https://api.github.com'\n  /**\n   * A Hoist Connector for connecting to GitHub\n   * @extends {OAuth2ConnectorBase}\n   */\nexport default class GitHubConnector extends OAuth2ConnectorBase {\n\n  /**\n   * create a new connector\n   * @param {object} configuration - the configuration properties to use\n   * @param {string} configuration.clientId - the OAuth2 client id\n   * @param {string} configuration.clientSecret - the OAuth2 client secret\n   * @param {string} [configuration.scope='user,repo,admin:repo_hook,notifications'] - a comma separated list of scopes to use https://developer.github.com/v3/oauth/#scopes\n   */\n  constructor(configuration) {\n    super(merge({}, configuration, overrides));\n    this._clientId = configuration.clientId;\n    this._scopeString = configuration.scope || 'user,repo,admin:repo_hook,notifications';\n  }\n\n  /**\n   * @private\n   * @param AuthorizationStore authorization the users authorisation store\n   * @returns Promise<object> an object containing key value pairs to send with the client to the authorization url\n   */\n  _authorizeParams(authorization) {\n    return super._authorizeParams(authorization)\n      .then((params) => {\n        return Promise.resolve(Math.round(Math.random() * 5000000))\n          .then((r) => {\n            return authorization.set('state', r).then(() => {\n              params.state = r;\n              params.scope = this._scopeString;\n              return params;\n            });\n          });\n      });\n  }\n  static defaultSettings() {\n    return Promise.resolve({\n      scope: 'user,repo,admin:repo_hook,notifications'\n    });\n  }\n\n  get(path) {\n    let uri = `${apiBaseUri}${path}`;\n    return this._performRequest('GET', uri).then((result) => {\n      return JSON.parse(result[0]);\n    });\n  }\n  post(path, body) {\n    let uri = `${apiBaseUri}${path}`;\n    return this._performRequest('POST', uri, body).then((result) => {\n      return JSON.parse(result[0]);\n    });\n  }\n  patch(path, body) {\n    let uri = `${apiBaseUri}${path}`;\n    return this._performRequest('PATCH', uri, body).then((result) => {\n      return JSON.parse(result[0]);\n    });\n  }\n  delete(path) {\n    let uri = `${apiBaseUri}${path}`;\n    return this._performRequest('DELETE', uri);\n  }\n}\n\n/**\n * @external {OAuth2ConnectorBase} https://doc.esdoc.org/github.com/hoist/oauth-connector/class/src/oauth2_connector.js~OAuth2ConnectorBase.html\n */\n"
   },
   {
     "kind": "variable",
@@ -210,6 +210,25 @@
   },
   {
     "kind": "method",
+    "static": true,
+    "variation": null,
+    "name": "defaultSettings",
+    "memberof": "src/connector.js~GitHubConnector",
+    "longname": "src/connector.js~GitHubConnector.defaultSettings",
+    "access": null,
+    "description": null,
+    "lineNumber": 51,
+    "undocument": true,
+    "params": [],
+    "return": {
+      "types": [
+        "*"
+      ]
+    },
+    "generator": false
+  },
+  {
+    "kind": "method",
     "static": false,
     "variation": null,
     "name": "get",
@@ -217,7 +236,7 @@
     "longname": "src/connector.js~GitHubConnector#get",
     "access": null,
     "description": null,
-    "lineNumber": 51,
+    "lineNumber": 57,
     "undocument": true,
     "params": [
       {
@@ -243,7 +262,7 @@
     "longname": "src/connector.js~GitHubConnector#post",
     "access": null,
     "description": null,
-    "lineNumber": 57,
+    "lineNumber": 63,
     "undocument": true,
     "params": [
       {
@@ -275,7 +294,7 @@
     "longname": "src/connector.js~GitHubConnector#patch",
     "access": null,
     "description": null,
-    "lineNumber": 63,
+    "lineNumber": 69,
     "undocument": true,
     "params": [
       {
@@ -307,7 +326,7 @@
     "longname": "src/connector.js~GitHubConnector#delete",
     "access": null,
     "description": null,
-    "lineNumber": 69,
+    "lineNumber": 75,
     "undocument": true,
     "params": [
       {
@@ -1318,5 +1337,43 @@
     "access": null,
     "description": "returns the webhook",
     "lineNumber": 150
+  },
+  {
+    "kind": "testFile",
+    "static": true,
+    "variation": null,
+    "name": "tests/unit_tests/settings_tests.js",
+    "memberof": null,
+    "longname": "tests/unit_tests/settings_tests.js",
+    "access": null,
+    "description": null,
+    "lineNumber": 1,
+    "content": "import GitHubConnector from '../../lib/connector';\nimport {\n  expect\n}\nfrom 'chai';\ndescribe('default settings', () => {\n  let connector;\n  it('exposes defaultSettings method', () => {\n    return expect(GitHubConnector.defaultSettings).to.exist;\n  });\n})\n"
+  },
+  {
+    "kind": "testDescribe",
+    "static": true,
+    "variation": null,
+    "name": "describe23",
+    "testId": 23,
+    "memberof": "tests/unit_tests/settings_tests.js",
+    "testDepth": 0,
+    "longname": "tests/unit_tests/settings_tests.js~describe23",
+    "access": null,
+    "description": "default settings",
+    "lineNumber": 6
+  },
+  {
+    "kind": "testIt",
+    "static": true,
+    "variation": null,
+    "name": "it24",
+    "testId": 24,
+    "memberof": "tests/unit_tests/settings_tests.js~describe23",
+    "testDepth": 1,
+    "longname": "tests/unit_tests/settings_tests.js~describe23.it24",
+    "access": null,
+    "description": "exposes defaultSettings method",
+    "lineNumber": 8
   }
 ]

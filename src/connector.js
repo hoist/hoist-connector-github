@@ -48,6 +48,12 @@ export default class GitHubConnector extends OAuth2ConnectorBase {
           });
       });
   }
+  static defaultSettings() {
+    return Promise.resolve({
+      scope: 'user,repo,admin:repo_hook,notifications'
+    });
+  }
+
   get(path) {
     let uri = `${apiBaseUri}${path}`;
     return this._performRequest('GET', uri).then((result) => {

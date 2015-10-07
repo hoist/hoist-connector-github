@@ -373,6 +373,18 @@ window.esdocSearchIndex = [
   ],
   [
     "",
+    "test-file/tests/unit_tests/settings_tests.js.html#lineNumber6",
+    "default settings",
+    "test"
+  ],
+  [
+    "",
+    "test-file/tests/unit_tests/settings_tests.js.html#lineNumber8",
+    "default settings exposes defaultSettings method",
+    "test"
+  ],
+  [
+    "",
     "test-file/tests/integration_tests/repositories_tests.js.html#lineNumber7",
     "get repositories",
     "test"
@@ -462,6 +474,12 @@ window.esdocSearchIndex = [
     "method"
   ],
   [
+    "src/connector.js~githubconnector.defaultsettings",
+    "class/src/connector.js~GitHubConnector.html#static-method-defaultSettings",
+    "src/connector.js~GitHubConnector.defaultSettings",
+    "method"
+  ],
+  [
     "src/connector.js~oauth2connectorbase",
     "external/index.html",
     "src/connector.js~OAuth2ConnectorBase",
@@ -489,6 +507,12 @@ window.esdocSearchIndex = [
     "tests/integration_tests/webhook_tests.js",
     "test-file/tests/integration_tests/webhook_tests.js.html",
     "tests/integration_tests/webhook_tests.js",
+    "testFile"
+  ],
+  [
+    "tests/unit_tests/settings_tests.js",
+    "test-file/tests/unit_tests/settings_tests.js.html",
+    "tests/unit_tests/settings_tests.js",
     "testFile"
   ],
   [

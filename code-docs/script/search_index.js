@@ -6,6 +6,12 @@ window.esdocSearchIndex = [
     "class"
   ],
   [
+    "hoist-connector-github/src/poll.js~poll",
+    "function/index.html#static-function-poll",
+    "<span>poll</span> <span class=\"search-result-import-path\">hoist-connector-github/src/poll.js</span>",
+    "function"
+  ],
+  [
     "builtinexternal/ecmascriptexternal.js~array",
     "external/index.html",
     "BuiltinExternal/ECMAScriptExternal.js~Array",
@@ -391,7 +397,7 @@ window.esdocSearchIndex = [
   ],
   [
     "",
-    "test-file/tests/integration_tests/repositories_tests.js.html#lineNumber46",
+    "test-file/tests/integration_tests/repositories_tests.js.html#lineNumber47",
     "get repositories returns public and private repositories",
     "test"
   ],
@@ -486,6 +492,12 @@ window.esdocSearchIndex = [
     "external"
   ],
   [
+    "src/poll.js",
+    "file/src/poll.js.html",
+    "src/poll.js",
+    "file"
+  ],
+  [
     "tests/integration_tests/auth_tests.js",
     "test-file/tests/integration_tests/auth_tests.js.html",
     "tests/integration_tests/auth_tests.js",
@@ -541,7 +553,7 @@ window.esdocSearchIndex = [
   ],
   [
     "",
-    "test-file/tests/integration_tests/webhook_tests.js.html#lineNumber150",
+    "test-file/tests/integration_tests/webhook_tests.js.html#lineNumber149",
     "webhook api delete webhook returns the webhook",
     "test"
   ],

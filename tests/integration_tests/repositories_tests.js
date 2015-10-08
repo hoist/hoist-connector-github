@@ -4,7 +4,8 @@ import {
   expect
 }
 from 'chai';
-describe('get repositories', () => {
+describe('get repositories', function () {
+  this.timeout(5000);
   let authorization;
   let _result;
   let connector;
@@ -37,13 +38,13 @@ describe('get repositories', () => {
     });
     authorization.set('AccessToken', config.get('accessToken'));
     connector.authorize(authorization)
-    return connector.get('/user/repos')
+    return connector.get('/user/repos?per_page=10')
       .then((result) => {
         _result = result;
       });
 
   });
   it('returns public and private repositories', () => {
-    return expect(_result.map((repo) => repo.name)).to.contain('test-repo', 'api.hoi.io');
+    return expect(_result.map((repo) => repo.name)).to.contain('api.hoi.io');
   });
 });

@@ -37,7 +37,13 @@
 
 
 
-
+<div data-ice="functionWrap">
+  <h2><a href="function/">Function</a></h2>
+  <ul>
+    
+  <li data-ice="functionDoc"><span><a href="function/index.html#static-function-poll">poll</a></span></li>
+</ul>
+</div>
 
 
 
@@ -195,7 +201,6 @@ describe(&apos;webhook api&apos;, function () {
       return connector.get(&apos;/repos/hoist-bot/test-repo/hooks&apos;)
         .then((result) =&gt; {
           var uri = `/repos/hoist-bot/test-repo/hooks/${result[0].id}`
-          console.log(uri);
           return connector.delete(uri);
         }).then((result) =&gt; {
           _result = result;

@@ -344,6 +344,212 @@
     "generator": false
   },
   {
+    "kind": "file",
+    "static": true,
+    "variation": null,
+    "name": "src/poll.js",
+    "memberof": null,
+    "longname": "src/poll.js",
+    "access": null,
+    "description": null,
+    "lineNumber": 1,
+    "content": "import GitHubConnector from './connector';\nimport logger from '@hoist/logger';\nimport Moment from 'moment'\nimport errors from '@hoist/errors';\nimport config from 'config';\n\nvar ConnectorRequiresAuthorizationError = errors.create({\n  name: 'ConnectorRequiresAuthorizationError'\n});\n\nclass GitHubPoller {\n  constructor(context) {\n    this._logger = logger.child({\n      cls: this.constructor.name,\n      subscription: context.subscription._id,\n      application: context.application._id\n    });\n    this._context = context;\n    this._connector = new GitHubConnector(context.settings);\n  }\n  poll() {\n    return this.assertCanPoll()\n      .then((hooksSetup) => {\n        if (!hooksSetup) {\n          return this.setupHook();\n        }\n      }).catch((err) => {\n        this._logger.error(err);\n        if (!(err instanceof ConnectorRequiresAuthorizationError)) {\n          this._logger.alert(err);\n        }\n      });\n  }\n  assertCanPoll() {\n    var hooksSetup = this._context.subscription.get('setup');\n    return Promise.resolve()\n      .then(() => {\n        if (hooksSetup) {\n          //we've already setup this subscription\n          this._context.subscription.delayTill(new Moment().add(100, 'days').toDate());\n        }\n      })\n      .then(() => {\n        this._logger.info('checking credentials');\n        if (!(this._context.authorization)) {\n          this._logger.warn('Connector needs auth and no auth set');\n          //we've already setup this subscription\n          this._context.subscription.delayTill(new Moment().add(1, 'hour').toDate());\n          throw new ConnectorRequiresAuthorizationError();\n        }\n        if (!this._context.authorization.get('SubscriptionRepository')) {\n          this._logger.warn('Connector needs a subscription repository and none set');\n          //we've already setup this subscription\n          this._context.subscription.delayTill(new Moment().add(1, 'hour').toDate());\n          throw new ConnectorRequiresAuthorizationError();\n        }\n      }).then(() => {\n        return hooksSetup;\n      });\n  }\n  setupHook() {\n    return Promise.resolve()\n      .then(() => {\n        this._logger.info('setting connector authorization');\n        return this._connector.authorize(this._context.authorization);\n      }).then(() => {\n        this._logger.info('creating webhook endpoint');\n        let hookUri = `https://${config.get('Hoist.domains.endpoint')}/${this._context.organisation.slug}/${this._context.application.slug}/${this._context.connectorKey}-incoming`;\n        this._connector.post(`/repos/${this._context.authorization.get('SubscriptionRepository')}/hooks`, {\n          \"name\": 'web',\n          \"config\": {\n            \"url\": hookUri,\n            \"content_type\": \"json\"\n          },\n          \"events\": [\n            \"*\"\n          ]\n        });\n      }).then(() => {\n        this._logger.info('webhooks created');\n        return this._context.subscription.set('setup', true);\n      });\n  }\n}\n\nexport default function (context) {\n  let poller = new GitHubPoller(context);\n  return poller.poll();\n};\n"
+  },
+  {
+    "kind": "variable",
+    "static": true,
+    "variation": null,
+    "name": "ConnectorRequiresAuthorizationError",
+    "memberof": "src/poll.js",
+    "longname": "src/poll.js~ConnectorRequiresAuthorizationError",
+    "access": null,
+    "export": false,
+    "importPath": "hoist-connector-github/src/poll.js",
+    "importStyle": null,
+    "description": null,
+    "lineNumber": 7,
+    "undocument": true,
+    "type": {
+      "types": [
+        "*"
+      ]
+    }
+  },
+  {
+    "kind": "class",
+    "static": true,
+    "variation": null,
+    "name": "GitHubPoller",
+    "memberof": "src/poll.js",
+    "longname": "src/poll.js~GitHubPoller",
+    "access": null,
+    "export": false,
+    "importPath": "hoist-connector-github/src/poll.js",
+    "importStyle": null,
+    "description": null,
+    "lineNumber": 11,
+    "undocument": true,
+    "interface": false
+  },
+  {
+    "kind": "constructor",
+    "static": false,
+    "variation": null,
+    "name": "constructor",
+    "memberof": "src/poll.js~GitHubPoller",
+    "longname": "src/poll.js~GitHubPoller#constructor",
+    "access": null,
+    "description": null,
+    "lineNumber": 12,
+    "undocument": true,
+    "params": [
+      {
+        "name": "context",
+        "types": [
+          "*"
+        ]
+      }
+    ],
+    "generator": false
+  },
+  {
+    "kind": "member",
+    "static": false,
+    "variation": null,
+    "name": "_logger",
+    "memberof": "src/poll.js~GitHubPoller",
+    "longname": "src/poll.js~GitHubPoller#_logger",
+    "access": null,
+    "description": null,
+    "lineNumber": 13,
+    "undocument": true,
+    "type": {
+      "types": [
+        "*"
+      ]
+    }
+  },
+  {
+    "kind": "member",
+    "static": false,
+    "variation": null,
+    "name": "_context",
+    "memberof": "src/poll.js~GitHubPoller",
+    "longname": "src/poll.js~GitHubPoller#_context",
+    "access": null,
+    "description": null,
+    "lineNumber": 18,
+    "undocument": true,
+    "type": {
+      "types": [
+        "*"
+      ]
+    }
+  },
+  {
+    "kind": "member",
+    "static": false,
+    "variation": null,
+    "name": "_connector",
+    "memberof": "src/poll.js~GitHubPoller",
+    "longname": "src/poll.js~GitHubPoller#_connector",
+    "access": null,
+    "description": null,
+    "lineNumber": 19,
+    "undocument": true,
+    "type": {
+      "types": [
+        "*"
+      ]
+    }
+  },
+  {
+    "kind": "method",
+    "static": false,
+    "variation": null,
+    "name": "poll",
+    "memberof": "src/poll.js~GitHubPoller",
+    "longname": "src/poll.js~GitHubPoller#poll",
+    "access": null,
+    "description": null,
+    "lineNumber": 21,
+    "undocument": true,
+    "params": [],
+    "return": {
+      "types": [
+        "*"
+      ]
+    },
+    "generator": false
+  },
+  {
+    "kind": "method",
+    "static": false,
+    "variation": null,
+    "name": "assertCanPoll",
+    "memberof": "src/poll.js~GitHubPoller",
+    "longname": "src/poll.js~GitHubPoller#assertCanPoll",
+    "access": null,
+    "description": null,
+    "lineNumber": 34,
+    "undocument": true,
+    "params": [],
+    "return": {
+      "types": [
+        "*"
+      ]
+    },
+    "generator": false
+  },
+  {
+    "kind": "method",
+    "static": false,
+    "variation": null,
+    "name": "setupHook",
+    "memberof": "src/poll.js~GitHubPoller",
+    "longname": "src/poll.js~GitHubPoller#setupHook",
+    "access": null,
+    "description": null,
+    "lineNumber": 61,
+    "undocument": true,
+    "params": [],
+    "return": {
+      "types": [
+        "*"
+      ]
+    },
+    "generator": false
+  },
+  {
+    "kind": "function",
+    "static": true,
+    "variation": null,
+    "name": "poll",
+    "memberof": "src/poll.js",
+    "longname": "src/poll.js~poll",
+    "access": null,
+    "export": true,
+    "importPath": "hoist-connector-github/src/poll.js",
+    "importStyle": "poll",
+    "description": null,
+    "lineNumber": 86,
+    "undocument": true,
+    "params": [
+      {
+        "name": "context",
+        "types": [
+          "*"
+        ]
+      }
+    ],
+    "return": {
+      "types": [
+        "*"
+      ]
+    },
+    "generator": false
+  },
+  {
     "kind": "external",
     "static": true,
     "variation": null,
@@ -1207,7 +1413,7 @@
     "access": null,
     "description": null,
     "lineNumber": 1,
-    "content": "import GitHubConnector from '../../lib/connector';\nimport config from 'config';\nimport {\n  expect\n}\nfrom 'chai';\ndescribe('get repositories', () => {\n  let authorization;\n  let _result;\n  let connector;\n  before(() => {\n    authorization = {\n      store: {},\n      get: function (key) {\n        return this.store[key];\n      },\n      delete: function (key) {\n        delete this.store[key];\n        return Promise.resolve(null);\n      },\n      set: function (key, value) {\n        this.store[key] = value;\n        return Promise.resolve(null);\n      },\n      redirect: function () {\n        console.log('redirect', arguments);\n        return Promise.resolve(null);\n      },\n      done: function () {\n        console.log('done', arguments);\n        return Promise.resolve(null);\n      }\n    };\n    connector = new GitHubConnector({\n      clientId: config.get('clientId'),\n      clientSecret: config.get('clientSecret')\n    });\n    authorization.set('AccessToken', config.get('accessToken'));\n    connector.authorize(authorization)\n    return connector.get('/user/repos')\n      .then((result) => {\n        _result = result;\n      });\n\n  });\n  it('returns public and private repositories', () => {\n    return expect(_result.map((repo) => repo.name)).to.contain('test-repo', 'api.hoi.io');\n  });\n});\n"
+    "content": "import GitHubConnector from '../../lib/connector';\nimport config from 'config';\nimport {\n  expect\n}\nfrom 'chai';\ndescribe('get repositories', function () {\n  this.timeout(5000);\n  let authorization;\n  let _result;\n  let connector;\n  before(() => {\n    authorization = {\n      store: {},\n      get: function (key) {\n        return this.store[key];\n      },\n      delete: function (key) {\n        delete this.store[key];\n        return Promise.resolve(null);\n      },\n      set: function (key, value) {\n        this.store[key] = value;\n        return Promise.resolve(null);\n      },\n      redirect: function () {\n        console.log('redirect', arguments);\n        return Promise.resolve(null);\n      },\n      done: function () {\n        console.log('done', arguments);\n        return Promise.resolve(null);\n      }\n    };\n    connector = new GitHubConnector({\n      clientId: config.get('clientId'),\n      clientSecret: config.get('clientSecret')\n    });\n    authorization.set('AccessToken', config.get('accessToken'));\n    connector.authorize(authorization)\n    return connector.get('/user/repos?per_page=10')\n      .then((result) => {\n        _result = result;\n      });\n\n  });\n  it('returns public and private repositories', () => {\n    return expect(_result.map((repo) => repo.name)).to.contain('api.hoi.io');\n  });\n});\n"
   },
   {
     "kind": "testDescribe",
@@ -1233,7 +1439,7 @@
     "longname": "tests/integration_tests/repositories_tests.js~describe14.it15",
     "access": null,
     "description": "returns public and private repositories",
-    "lineNumber": 46
+    "lineNumber": 47
   },
   {
     "kind": "testFile",
@@ -1245,7 +1451,7 @@
     "access": null,
     "description": null,
     "lineNumber": 1,
-    "content": "import GitHubConnector from '../../lib/connector';\nimport config from 'config';\nimport {\n  expect\n}\nfrom 'chai';\ndescribe('webhook api', function () {\n  this.timeout(5000);\n  describe('create a webhook', () => {\n    let authorization;\n    let _result;\n    let connector;\n    let title = \"Issue created by Unit Test: \" + new Date();\n    before(() => {\n      authorization = {\n        store: {},\n        get: function (key) {\n          return this.store[key];\n        },\n        delete: function (key) {\n          delete this.store[key];\n          return Promise.resolve(null);\n        },\n        set: function (key, value) {\n          this.store[key] = value;\n          return Promise.resolve(null);\n        },\n        redirect: function () {\n          console.log('redirect', arguments);\n          return Promise.resolve(null);\n        },\n        done: function () {\n          console.log('done', arguments);\n          return Promise.resolve(null);\n        }\n      };\n      connector = new GitHubConnector({\n        clientId: config.get('clientId'),\n        clientSecret: config.get('clientSecret')\n      });\n      authorization.set('AccessToken', config.get('accessToken'));\n      connector.authorize(authorization)\n      return connector.post('/repos/hoist-bot/test-repo/hooks', {\n          \"name\": 'web',\n          \"config\": {\n            \"url\": \"https://endpoint.hoi.test/test-hook-\" + Math.random() * 2000,\n            \"content_type\": \"json\"\n          },\n          \"events\": [\n            \"*\"\n          ]\n        })\n        .then((result) => {\n          _result = result;\n        });\n\n    });\n    it('creates the webhook', () => {\n      return expect(_result.name).to.eql('web');\n    });\n  });\n  describe('list webhook', () => {\n    let authorization;\n    let _result;\n    let connector;\n    let title = \"Issue created by Unit Test: \" + new Date();\n    before(() => {\n      authorization = {\n        store: {},\n        get: function (key) {\n          return this.store[key];\n        },\n        delete: function (key) {\n          delete this.store[key];\n          return Promise.resolve(null);\n        },\n        set: function (key, value) {\n          this.store[key] = value;\n          return Promise.resolve(null);\n        },\n        redirect: function () {\n          console.log('redirect', arguments);\n          return Promise.resolve(null);\n        },\n        done: function () {\n          console.log('done', arguments);\n          return Promise.resolve(null);\n        }\n      };\n      connector = new GitHubConnector({\n        clientId: config.get('clientId'),\n        clientSecret: config.get('clientSecret')\n      });\n      authorization.set('AccessToken', config.get('accessToken'));\n      connector.authorize(authorization)\n      return connector.get('/repos/hoist-bot/test-repo/hooks')\n        .then((result) => {\n          _result = result;\n        });\n\n    });\n    it('returns the webhook', () => {\n      return expect(_result.length).to.be.greaterThan(0);\n    });\n  });\n  describe('delete webhook', () => {\n    let authorization;\n    let _result;\n    let connector;\n    let title = \"Issue created by Unit Test: \" + new Date();\n    before(() => {\n      authorization = {\n        store: {},\n        get: function (key) {\n          return this.store[key];\n        },\n        delete: function (key) {\n          delete this.store[key];\n          return Promise.resolve(null);\n        },\n        set: function (key, value) {\n          this.store[key] = value;\n          return Promise.resolve(null);\n        },\n        redirect: function () {\n          console.log('redirect', arguments);\n          return Promise.resolve(null);\n        },\n        done: function () {\n          console.log('done', arguments);\n          return Promise.resolve(null);\n        }\n      };\n      connector = new GitHubConnector({\n        clientId: config.get('clientId'),\n        clientSecret: config.get('clientSecret')\n      });\n      authorization.set('AccessToken', config.get('accessToken'));\n      connector.authorize(authorization)\n      return connector.get('/repos/hoist-bot/test-repo/hooks')\n        .then((result) => {\n          var uri = `/repos/hoist-bot/test-repo/hooks/${result[0].id}`\n          console.log(uri);\n          return connector.delete(uri);\n        }).then((result) => {\n          _result = result;\n        });\n\n    });\n    it('returns the webhook', () => {\n      return expect(_result[0]).to.eql('');\n    });\n  });\n});\n"
+    "content": "import GitHubConnector from '../../lib/connector';\nimport config from 'config';\nimport {\n  expect\n}\nfrom 'chai';\ndescribe('webhook api', function () {\n  this.timeout(5000);\n  describe('create a webhook', () => {\n    let authorization;\n    let _result;\n    let connector;\n    let title = \"Issue created by Unit Test: \" + new Date();\n    before(() => {\n      authorization = {\n        store: {},\n        get: function (key) {\n          return this.store[key];\n        },\n        delete: function (key) {\n          delete this.store[key];\n          return Promise.resolve(null);\n        },\n        set: function (key, value) {\n          this.store[key] = value;\n          return Promise.resolve(null);\n        },\n        redirect: function () {\n          console.log('redirect', arguments);\n          return Promise.resolve(null);\n        },\n        done: function () {\n          console.log('done', arguments);\n          return Promise.resolve(null);\n        }\n      };\n      connector = new GitHubConnector({\n        clientId: config.get('clientId'),\n        clientSecret: config.get('clientSecret')\n      });\n      authorization.set('AccessToken', config.get('accessToken'));\n      connector.authorize(authorization)\n      return connector.post('/repos/hoist-bot/test-repo/hooks', {\n          \"name\": 'web',\n          \"config\": {\n            \"url\": \"https://endpoint.hoi.test/test-hook-\" + Math.random() * 2000,\n            \"content_type\": \"json\"\n          },\n          \"events\": [\n            \"*\"\n          ]\n        })\n        .then((result) => {\n          _result = result;\n        });\n\n    });\n    it('creates the webhook', () => {\n      return expect(_result.name).to.eql('web');\n    });\n  });\n  describe('list webhook', () => {\n    let authorization;\n    let _result;\n    let connector;\n    let title = \"Issue created by Unit Test: \" + new Date();\n    before(() => {\n      authorization = {\n        store: {},\n        get: function (key) {\n          return this.store[key];\n        },\n        delete: function (key) {\n          delete this.store[key];\n          return Promise.resolve(null);\n        },\n        set: function (key, value) {\n          this.store[key] = value;\n          return Promise.resolve(null);\n        },\n        redirect: function () {\n          console.log('redirect', arguments);\n          return Promise.resolve(null);\n        },\n        done: function () {\n          console.log('done', arguments);\n          return Promise.resolve(null);\n        }\n      };\n      connector = new GitHubConnector({\n        clientId: config.get('clientId'),\n        clientSecret: config.get('clientSecret')\n      });\n      authorization.set('AccessToken', config.get('accessToken'));\n      connector.authorize(authorization)\n      return connector.get('/repos/hoist-bot/test-repo/hooks')\n        .then((result) => {\n          _result = result;\n        });\n\n    });\n    it('returns the webhook', () => {\n      return expect(_result.length).to.be.greaterThan(0);\n    });\n  });\n  describe('delete webhook', () => {\n    let authorization;\n    let _result;\n    let connector;\n    let title = \"Issue created by Unit Test: \" + new Date();\n    before(() => {\n      authorization = {\n        store: {},\n        get: function (key) {\n          return this.store[key];\n        },\n        delete: function (key) {\n          delete this.store[key];\n          return Promise.resolve(null);\n        },\n        set: function (key, value) {\n          this.store[key] = value;\n          return Promise.resolve(null);\n        },\n        redirect: function () {\n          console.log('redirect', arguments);\n          return Promise.resolve(null);\n        },\n        done: function () {\n          console.log('done', arguments);\n          return Promise.resolve(null);\n        }\n      };\n      connector = new GitHubConnector({\n        clientId: config.get('clientId'),\n        clientSecret: config.get('clientSecret')\n      });\n      authorization.set('AccessToken', config.get('accessToken'));\n      connector.authorize(authorization)\n      return connector.get('/repos/hoist-bot/test-repo/hooks')\n        .then((result) => {\n          var uri = `/repos/hoist-bot/test-repo/hooks/${result[0].id}`\n          return connector.delete(uri);\n        }).then((result) => {\n          _result = result;\n        });\n\n    });\n    it('returns the webhook', () => {\n      return expect(_result[0]).to.eql('');\n    });\n  });\n});\n"
   },
   {
     "kind": "testDescribe",
@@ -1336,7 +1542,7 @@
     "longname": "tests/integration_tests/webhook_tests.js~describe16.describe21.it22",
     "access": null,
     "description": "returns the webhook",
-    "lineNumber": 150
+    "lineNumber": 149
   },
   {
     "kind": "testFile",

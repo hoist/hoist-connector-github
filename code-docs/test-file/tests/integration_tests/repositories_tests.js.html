@@ -37,7 +37,13 @@
 
 
 
-
+<div data-ice="functionWrap">
+  <h2><a href="function/">Function</a></h2>
+  <ul>
+    
+  <li data-ice="functionDoc"><span><a href="function/index.html#static-function-poll">poll</a></span></li>
+</ul>
+</div>
 
 
 
@@ -59,7 +65,8 @@ import {
   expect
 }
 from &apos;chai&apos;;
-describe(&apos;get repositories&apos;, () =&gt; {
+describe(&apos;get repositories&apos;, function () {
+  this.timeout(5000);
   let authorization;
   let _result;
   let connector;
@@ -92,14 +99,14 @@ describe(&apos;get repositories&apos;, () =&gt; {
     });
     authorization.set(&apos;AccessToken&apos;, config.get(&apos;accessToken&apos;));
     connector.authorize(authorization)
-    return connector.get(&apos;/user/repos&apos;)
+    return connector.get(&apos;/user/repos?per_page=10&apos;)
       .then((result) =&gt; {
         _result = result;
       });
 
   });
   it(&apos;returns public and private repositories&apos;, () =&gt; {
-    return expect(_result.map((repo) =&gt; repo.name)).to.contain(&apos;test-repo&apos;, &apos;api.hoi.io&apos;);
+    return expect(_result.map((repo) =&gt; repo.name)).to.contain(&apos;api.hoi.io&apos;);
   });
 });
 </code></pre>

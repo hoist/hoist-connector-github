@@ -147,7 +147,7 @@ describe('webhook api', function () {
 
     });
     it('returns the webhook', () => {
-      return expect(_result[0]).to.eql('');
+      return expect(_result).to.eql('');
     });
   });
 });

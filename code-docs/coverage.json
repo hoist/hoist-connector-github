@@ -1,17 +1,43 @@
 {
-  "coverage": "25%",
-  "expectCount": 8,
-  "actualCount": 2,
+  "coverage": "16.66%",
+  "expectCount": 24,
+  "actualCount": 4,
   "files": {
+    "src/views/edit.js": {
+      "expectCount": 11,
+      "actualCount": 0,
+      "undocumentLines": [
+        5,
+        23,
+        20,
+        6,
+        47,
+        62,
+        44,
+        28,
+        93,
+        34,
+        12
+      ]
+    },
     "src/connector.js": {
       "expectCount": 7,
       "actualCount": 2,
       "undocumentLines": [
         51,
-        75,
+        76,
         57,
-        69,
-        63
+        70,
+        64
+      ]
+    },
+    "src/hooks.js": {
+      "expectCount": 5,
+      "actualCount": 2,
+      "undocumentLines": [
+        16,
+        25,
+        20
       ]
     },
     "src/poll.js": {

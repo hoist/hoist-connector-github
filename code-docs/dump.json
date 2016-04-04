@@ -10,7 +10,7 @@
     "access": null,
     "description": null,
     "lineNumber": 1,
-    "content": "import {\n  OAuth2ConnectorBase\n}\nfrom '@hoist/oauth-connector';\nimport {\n  merge\n}\nfrom 'lodash';\n\nlet overrides = {\n  baseSite: 'https://github.com/login'\n};\nlet apiBaseUri = 'https://api.github.com'\n  /**\n   * A Hoist Connector for connecting to GitHub\n   * @extends {OAuth2ConnectorBase}\n   */\nexport default class GitHubConnector extends OAuth2ConnectorBase {\n\n  /**\n   * create a new connector\n   * @param {object} configuration - the configuration properties to use\n   * @param {string} configuration.clientId - the OAuth2 client id\n   * @param {string} configuration.clientSecret - the OAuth2 client secret\n   * @param {string} [configuration.scope='user,repo,admin:repo_hook,notifications'] - a comma separated list of scopes to use https://developer.github.com/v3/oauth/#scopes\n   */\n  constructor(configuration) {\n    super(merge({}, configuration, overrides));\n    this._clientId = configuration.clientId;\n    this._scopeString = configuration.scope || 'user,repo,admin:repo_hook,notifications';\n  }\n\n  /**\n   * @private\n   * @param AuthorizationStore authorization the users authorisation store\n   * @returns Promise<object> an object containing key value pairs to send with the client to the authorization url\n   */\n  _authorizeParams(authorization) {\n    return super._authorizeParams(authorization)\n      .then((params) => {\n        return Promise.resolve(Math.round(Math.random() * 5000000))\n          .then((r) => {\n            return authorization.set('state', r).then(() => {\n              params.state = r;\n              params.scope = this._scopeString;\n              return params;\n            });\n          });\n      });\n  }\n  static defaultSettings() {\n    return Promise.resolve({\n      scope: 'user,repo,admin:repo_hook,notifications'\n    });\n  }\n\n  get(path) {\n    let uri = `${apiBaseUri}${path}`;\n    return this._performRequest('GET', uri).then((result) => {\n      return JSON.parse(result);\n    });\n  }\n  post(path, body) {\n    let uri = `${apiBaseUri}${path}`;\n    return this._performRequest('POST', uri, body).then((result) => {\n      return JSON.parse(result);\n    });\n  }\n  patch(path, body) {\n    let uri = `${apiBaseUri}${path}`;\n    return this._performRequest('PATCH', uri, body).then((result) => {\n      return JSON.parse(result);\n    });\n  }\n  delete(path) {\n    let uri = `${apiBaseUri}${path}`;\n    return this._performRequest('DELETE', uri);\n  }\n}\n\n/**\n * @external {OAuth2ConnectorBase} https://doc.esdoc.org/github.com/hoist/oauth-connector/class/src/oauth2_connector.js~OAuth2ConnectorBase.html\n */\n"
+    "content": "import {\n  OAuth2ConnectorBase\n}\nfrom '@hoist/oauth-connector';\nimport {\n  merge\n}\nfrom 'lodash';\n\nlet overrides = {\n  baseSite: 'https://github.com/login'\n};\nlet apiBaseUri = 'https://api.github.com'\n  /**\n   * A Hoist Connector for connecting to GitHub\n   * @extends {OAuth2ConnectorBase}\n   */\nexport default class GitHubConnector extends OAuth2ConnectorBase {\n\n  /**\n   * create a new connector\n   * @param {object} configuration - the configuration properties to use\n   * @param {string} configuration.clientId - the OAuth2 client id\n   * @param {string} configuration.clientSecret - the OAuth2 client secret\n   * @param {string} [configuration.scope='user,repo,admin:repo_hook,notifications'] - a comma separated list of scopes to use https://developer.github.com/v3/oauth/#scopes\n   */\n  constructor(configuration) {\n    super(merge({}, configuration, overrides));\n    this._clientId = configuration.clientId;\n    this._scopeString = configuration.scope || 'user,repo,admin:repo_hook,notifications';\n  }\n\n  /**\n   * @private\n   * @param AuthorizationStore authorization the users authorisation store\n   * @returns Promise<object> an object containing key value pairs to send with the client to the authorization url\n   */\n  _authorizeParams(authorization) {\n    return super._authorizeParams(authorization)\n      .then((params) => {\n        return Promise.resolve(Math.round(Math.random() * 5000000))\n          .then((r) => {\n            return authorization.set('state', r).then(() => {\n              params.state = r;\n              params.scope = this._scopeString;\n              return params;\n            });\n          });\n      });\n  }\n  static defaultSettings() {\n    return Promise.resolve({\n      scope: 'user,repo,admin:repo_hook,notifications'\n    });\n  }\n\n  get(path) {\n    let uri = `${apiBaseUri}${path}`;\n    return this._performRequest('GET', uri).then((result) => {\n      console.log(\"GOTS A RESULT\", result);\n      return JSON.parse(result);\n    });\n  }\n  post(path, body) {\n    let uri = `${apiBaseUri}${path}`;\n    return this._performRequest('POST', uri, body).then((result) => {\n      return JSON.parse(result);\n    });\n  }\n  patch(path, body) {\n    let uri = `${apiBaseUri}${path}`;\n    return this._performRequest('PATCH', uri, body).then((result) => {\n      return JSON.parse(result);\n    });\n  }\n  delete(path) {\n    let uri = `${apiBaseUri}${path}`;\n    return this._performRequest('DELETE', uri);\n  }\n}\n\n/**\n * @external {OAuth2ConnectorBase} https://doc.esdoc.org/github.com/hoist/oauth-connector/class/src/oauth2_connector.js~OAuth2ConnectorBase.html\n */\n"
   },
   {
     "__docId__": 1,
@@ -274,7 +274,7 @@
     "longname": "src/connector.js~GitHubConnector#post",
     "access": null,
     "description": null,
-    "lineNumber": 63,
+    "lineNumber": 64,
     "undocument": true,
     "params": [
       {
@@ -307,7 +307,7 @@
     "longname": "src/connector.js~GitHubConnector#patch",
     "access": null,
     "description": null,
-    "lineNumber": 69,
+    "lineNumber": 70,
     "undocument": true,
     "params": [
       {
@@ -340,7 +340,7 @@
     "longname": "src/connector.js~GitHubConnector#delete",
     "access": null,
     "description": null,
-    "lineNumber": 75,
+    "lineNumber": 76,
     "undocument": true,
     "params": [
       {
@@ -362,6 +362,157 @@
     "kind": "file",
     "static": true,
     "variation": null,
+    "name": "src/hooks.js",
+    "memberof": null,
+    "longname": "src/hooks.js",
+    "access": null,
+    "description": null,
+    "lineNumber": 1,
+    "content": "import GithubConnector from './connector';\n\n/**\n * Hoist Connector Hooks for connecting to GitHub\n */\nexport default class GithubConnectorHooks {\n\n  /**\n   * create a new hook base\n   * @param {object} configuration - the configuration properties to use\n   */\n  constructor(settings) {\n    this._connector = new GithubConnector(settings);\n  }\n\n  getRepositories(count = 100) {\n    return this._connector.get('/user/repos?per_page=' + count);\n  }\n\n  watch(endpoint) {\n    //Watch an endpoint\n    return true;\n  }\n\n  stop(endpoint) {\n    //Stop watching an endpoint\n  }\n\n}\n\nmodule.exports = GithubConnectorHooks;\n"
+  },
+  {
+    "__docId__": 15,
+    "kind": "class",
+    "static": true,
+    "variation": null,
+    "name": "GithubConnectorHooks",
+    "memberof": "src/hooks.js",
+    "longname": "src/hooks.js~GithubConnectorHooks",
+    "access": null,
+    "export": true,
+    "importPath": "hoist-connector-github/src/hooks.js",
+    "importStyle": "GithubConnectorHooks",
+    "description": "Hoist Connector Hooks for connecting to GitHub",
+    "lineNumber": 6,
+    "interface": false
+  },
+  {
+    "__docId__": 16,
+    "kind": "constructor",
+    "static": false,
+    "variation": null,
+    "name": "constructor",
+    "memberof": "src/hooks.js~GithubConnectorHooks",
+    "longname": "src/hooks.js~GithubConnectorHooks#constructor",
+    "access": null,
+    "description": "create a new hook base",
+    "lineNumber": 12,
+    "params": [
+      {
+        "nullable": null,
+        "types": [
+          "object"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "configuration",
+        "description": "the configuration properties to use"
+      }
+    ],
+    "generator": false
+  },
+  {
+    "__docId__": 17,
+    "kind": "member",
+    "static": false,
+    "variation": null,
+    "name": "_connector",
+    "memberof": "src/hooks.js~GithubConnectorHooks",
+    "longname": "src/hooks.js~GithubConnectorHooks#_connector",
+    "access": null,
+    "description": null,
+    "lineNumber": 13,
+    "undocument": true,
+    "type": {
+      "types": [
+        "*"
+      ]
+    }
+  },
+  {
+    "__docId__": 18,
+    "kind": "method",
+    "static": false,
+    "variation": null,
+    "name": "getRepositories",
+    "memberof": "src/hooks.js~GithubConnectorHooks",
+    "longname": "src/hooks.js~GithubConnectorHooks#getRepositories",
+    "access": null,
+    "description": null,
+    "lineNumber": 16,
+    "undocument": true,
+    "params": [
+      {
+        "name": "count",
+        "optional": true,
+        "types": [
+          "number"
+        ],
+        "defaultRaw": 100,
+        "defaultValue": "100"
+      }
+    ],
+    "return": {
+      "types": [
+        "*"
+      ]
+    },
+    "generator": false
+  },
+  {
+    "__docId__": 19,
+    "kind": "method",
+    "static": false,
+    "variation": null,
+    "name": "watch",
+    "memberof": "src/hooks.js~GithubConnectorHooks",
+    "longname": "src/hooks.js~GithubConnectorHooks#watch",
+    "access": null,
+    "description": null,
+    "lineNumber": 20,
+    "undocument": true,
+    "params": [
+      {
+        "name": "endpoint",
+        "types": [
+          "*"
+        ]
+      }
+    ],
+    "return": {
+      "types": [
+        "boolean"
+      ]
+    },
+    "generator": false
+  },
+  {
+    "__docId__": 20,
+    "kind": "method",
+    "static": false,
+    "variation": null,
+    "name": "stop",
+    "memberof": "src/hooks.js~GithubConnectorHooks",
+    "longname": "src/hooks.js~GithubConnectorHooks#stop",
+    "access": null,
+    "description": null,
+    "lineNumber": 25,
+    "undocument": true,
+    "params": [
+      {
+        "name": "endpoint",
+        "types": [
+          "*"
+        ]
+      }
+    ],
+    "generator": false
+  },
+  {
+    "__docId__": 21,
+    "kind": "file",
+    "static": true,
+    "variation": null,
     "name": "src/poll.js",
     "memberof": null,
     "longname": "src/poll.js",
@@ -371,7 +522,7 @@
     "content": "import GitHubConnector from './connector';\nimport logger from '@hoist/logger';\nimport Moment from 'moment'\nimport errors from '@hoist/errors';\nimport config from 'config';\n\nvar ConnectorRequiresAuthorizationError = errors.create({\n  name: 'ConnectorRequiresAuthorizationError'\n});\n\nclass GitHubPoller {\n  constructor(context) {\n    this._logger = logger.child({\n      cls: this.constructor.name,\n      subscription: context.subscription._id,\n      application: context.application._id\n    });\n    this._context = context;\n    this._connector = new GitHubConnector(context.settings);\n  }\n  poll() {\n    return this.assertCanPoll()\n      .then((hooksSetup) => {\n        if (!hooksSetup) {\n          return this.setupHook();\n        }\n      }).catch((err) => {\n        this._logger.error(err);\n        if (!(err instanceof ConnectorRequiresAuthorizationError)) {\n          this._logger.alert(err);\n        }\n      });\n  }\n  assertCanPoll() {\n    var hooksSetup = this._context.subscription.get('setup');\n    return Promise.resolve()\n      .then(() => {\n        if (hooksSetup) {\n          //we've already setup this subscription\n          this._context.subscription.delayTill(new Moment().add(100, 'days').toDate());\n        }\n      })\n      .then(() => {\n        this._logger.info('checking credentials');\n        if (!(this._context.authorization)) {\n          this._logger.warn('Connector needs auth and no auth set');\n          //we've already setup this subscription\n          this._context.subscription.delayTill(new Moment().add(1, 'hour').toDate());\n          throw new ConnectorRequiresAuthorizationError();\n        }\n        if (!this._context.authorization.get('SubscriptionRepository')) {\n          this._logger.warn('Connector needs a subscription repository and none set');\n          //we've already setup this subscription\n          this._context.subscription.delayTill(new Moment().add(1, 'hour').toDate());\n          throw new ConnectorRequiresAuthorizationError();\n        }\n      }).then(() => {\n        return hooksSetup;\n      });\n  }\n  setupHook() {\n    return Promise.resolve()\n      .then(() => {\n        this._logger.info('setting connector authorization');\n        return this._connector.authorize(this._context.authorization);\n      }).then(() => {\n        this._logger.info('creating webhook endpoint');\n        let hookUri = `https://${config.get('Hoist.domains.endpoint')}/${this._context.organisation.slug}/${this._context.application.slug}/${this._context.connectorKey}-incoming`;\n        this._connector.post(`/repos/${this._context.authorization.get('SubscriptionRepository')}/hooks`, {\n          \"name\": 'web',\n          \"config\": {\n            \"url\": hookUri,\n            \"content_type\": \"json\"\n          },\n          \"events\": [\n            \"*\"\n          ]\n        });\n      }).then(() => {\n        this._logger.info('webhooks created');\n        return this._context.subscription.set('setup', true);\n      });\n  }\n}\n\nexport default function (context) {\n  let poller = new GitHubPoller(context);\n  return poller.poll();\n};\n"
   },
   {
-    "__docId__": 15,
+    "__docId__": 22,
     "kind": "variable",
     "static": true,
     "variation": null,
@@ -392,7 +543,7 @@
     }
   },
   {
-    "__docId__": 16,
+    "__docId__": 23,
     "kind": "class",
     "static": true,
     "variation": null,
@@ -409,7 +560,7 @@
     "interface": false
   },
   {
-    "__docId__": 17,
+    "__docId__": 24,
     "kind": "constructor",
     "static": false,
     "variation": null,
@@ -431,7 +582,7 @@
     "generator": false
   },
   {
-    "__docId__": 18,
+    "__docId__": 25,
     "kind": "member",
     "static": false,
     "variation": null,
@@ -449,7 +600,7 @@
     }
   },
   {
-    "__docId__": 19,
+    "__docId__": 26,
     "kind": "member",
     "static": false,
     "variation": null,
@@ -467,7 +618,7 @@
     }
   },
   {
-    "__docId__": 20,
+    "__docId__": 27,
     "kind": "member",
     "static": false,
     "variation": null,
@@ -485,7 +636,7 @@
     }
   },
   {
-    "__docId__": 21,
+    "__docId__": 28,
     "kind": "method",
     "static": false,
     "variation": null,
@@ -505,7 +656,7 @@
     "generator": false
   },
   {
-    "__docId__": 22,
+    "__docId__": 29,
     "kind": "method",
     "static": false,
     "variation": null,
@@ -525,7 +676,7 @@
     "generator": false
   },
   {
-    "__docId__": 23,
+    "__docId__": 30,
     "kind": "method",
     "static": false,
     "variation": null,
@@ -545,7 +696,7 @@
     "generator": false
   },
   {
-    "__docId__": 24,
+    "__docId__": 31,
     "kind": "function",
     "static": true,
     "variation": null,
@@ -575,7 +726,320 @@
     "generator": false
   },
   {
-    "__docId__": 26,
+    "__docId__": 32,
+    "kind": "file",
+    "static": true,
+    "variation": null,
+    "name": "src/views/edit.js",
+    "memberof": null,
+    "longname": "src/views/edit.js",
+    "access": null,
+    "description": null,
+    "lineNumber": 3,
+    "content": "/* globals UI */\n\nvar C = UI.Views.Connector;\n\nclass EditForm extends React.Component {\n  constructor(props) {\n    super(props);\n    this.getRepos = this.getRepos.bind(this);\n    this.renderRepos = this.renderRepos.bind(this);\n    this.getEditView = this.getEditView.bind(this);\n    this.getConnectView = this.getConnectView.bind(this);\n    this.state = {\n      events: [],\n      repositories: []\n    };\n    if (!props.connector) {\n      this.state.mode = 'connect';\n    }\n  }\n  connect() {\n    this.props.onConnect();\n  }\n  componentDidMount() {\n    if (this.props.connectorInstance) {\n      this.getRepos();\n    }\n  }\n  onSubscribe(item) {\n    this.props.onSubscribe({\n      event: item.option,\n      subscribed: item.checked\n    })\n  }\n  renderRepos() {\n    var repos = (this.props.viewData.repositories || []).map((r, i) => {\n      return <option key={i} value={r.full_name}>{r.full_name}</option>;\n    });\n    console.log(this.props.settings.SubscriptionRepository, 'really??');\n    if(!this.props.settings.SubscriptionRepository) {\n      repos.unshift(<option key={\"empty\"}>Select a Repository</option>);\n    }\n    return (<select defaultValue={this.props.settings.SubscriptionRepository} name={\"SubscriptionRepository\"}>{repos}</select>);\n  }\n  getRepos() {\n    this.props.connector.proxy('getRepositories', [100], 'repositories');\n  }\n  getConnectView() {\n    return (\n      <C.Page default=\"setup\" {...this.props}>\n        <C.Panel name=\"Setup\" slug=\"setup\">\n          <UI.FormElements.Button text={'Connect'} type=\"large\" onClick={()=>{\n              return this.connect();\n            }} />\n        </C.Panel>\n        <C.Panel name=\"Events\" slug=\"events\">\n          <C.PageHeader\n            title=\"Events are available once you've connected.\" />\n        </C.Panel>\n      </C.Page>\n    );\n  }\n  getEditView() {\n    return (\n      <C.Page default=\"setup\" {...this.props}>\n        <C.Panel name=\"Setup\" slug=\"setup\">\n          <form onChange={(evt) => {\n            this.props.updateField(evt);\n          }} onSubmit={(evt) => {\n            this.props.updateSettings(evt);\n          }}>\n            <div style={{marginBottom:30,paddingBottom:30,borderBottom:'1px solid #F1F1F1',position:'relative'}}>\n              <C.PageHeader\n                title=\"Choose the repositories you want to subscribe to.\"\n                subTitle=\"We'll create the webhook in the background for you.\" />\n                {this.props.viewData.repositories ? this.renderRepos() : <select><option>Loading...</option></select>}\n            </div>\n            <UI.FormElements.Button text={'Save'} type=\"large\" onClick={this.props.updateSettings} />\n          </form>\n          <UI.TextElements.Link text=\"or Reauthorize\" onClick={this.connect} />\n        </C.Panel>\n        <C.Panel name=\"Events\" slug=\"events\">\n          <C.PageHeader\n            title=\"Check the boxes of the events you want to subscribe to.\"\n            subTitle=\"Checking a box will automatically subscribe you to that event.\" />\n          <C.CheckboxGrid\n            items={['github:repo:update', 'github:new:commit']}\n            checked={['github:new:commit']}\n            onChange={this.onSubscribe} />\n        </C.Panel>\n      </C.Page>\n    );\n  }\n  render() {\n    return (<div>{this.props.connectorInstance ? this.getEditView() : this.getConnectView()}</div>);\n  }\n}\n\nexport default EditForm;\nglobal.EditForm = EditForm;\n"
+  },
+  {
+    "__docId__": 33,
+    "kind": "variable",
+    "static": true,
+    "variation": null,
+    "name": "C",
+    "memberof": "src/views/edit.js",
+    "longname": "src/views/edit.js~C",
+    "access": null,
+    "export": false,
+    "importPath": "hoist-connector-github/src/views/edit.js",
+    "importStyle": null,
+    "description": null,
+    "lineNumber": 3,
+    "undocument": true,
+    "type": {
+      "types": [
+        "*"
+      ]
+    }
+  },
+  {
+    "__docId__": 34,
+    "kind": "class",
+    "static": true,
+    "variation": null,
+    "name": "EditForm",
+    "memberof": "src/views/edit.js",
+    "longname": "src/views/edit.js~EditForm",
+    "access": null,
+    "export": true,
+    "importPath": "hoist-connector-github/src/views/edit.js",
+    "importStyle": "EditForm",
+    "description": null,
+    "lineNumber": 5,
+    "undocument": true,
+    "interface": false,
+    "extends": [
+      "React~React.Component"
+    ]
+  },
+  {
+    "__docId__": 35,
+    "kind": "constructor",
+    "static": false,
+    "variation": null,
+    "name": "constructor",
+    "memberof": "src/views/edit.js~EditForm",
+    "longname": "src/views/edit.js~EditForm#constructor",
+    "access": null,
+    "description": null,
+    "lineNumber": 6,
+    "undocument": true,
+    "params": [
+      {
+        "name": "props",
+        "types": [
+          "*"
+        ]
+      }
+    ],
+    "generator": false
+  },
+  {
+    "__docId__": 36,
+    "kind": "member",
+    "static": false,
+    "variation": null,
+    "name": "getRepos",
+    "memberof": "src/views/edit.js~EditForm",
+    "longname": "src/views/edit.js~EditForm#getRepos",
+    "access": null,
+    "description": null,
+    "lineNumber": 8,
+    "undocument": true,
+    "type": {
+      "types": [
+        "*"
+      ]
+    }
+  },
+  {
+    "__docId__": 37,
+    "kind": "member",
+    "static": false,
+    "variation": null,
+    "name": "renderRepos",
+    "memberof": "src/views/edit.js~EditForm",
+    "longname": "src/views/edit.js~EditForm#renderRepos",
+    "access": null,
+    "description": null,
+    "lineNumber": 9,
+    "undocument": true,
+    "type": {
+      "types": [
+        "*"
+      ]
+    }
+  },
+  {
+    "__docId__": 38,
+    "kind": "member",
+    "static": false,
+    "variation": null,
+    "name": "getEditView",
+    "memberof": "src/views/edit.js~EditForm",
+    "longname": "src/views/edit.js~EditForm#getEditView",
+    "access": null,
+    "description": null,
+    "lineNumber": 10,
+    "undocument": true,
+    "type": {
+      "types": [
+        "*"
+      ]
+    }
+  },
+  {
+    "__docId__": 39,
+    "kind": "member",
+    "static": false,
+    "variation": null,
+    "name": "getConnectView",
+    "memberof": "src/views/edit.js~EditForm",
+    "longname": "src/views/edit.js~EditForm#getConnectView",
+    "access": null,
+    "description": null,
+    "lineNumber": 11,
+    "undocument": true,
+    "type": {
+      "types": [
+        "*"
+      ]
+    }
+  },
+  {
+    "__docId__": 40,
+    "kind": "member",
+    "static": false,
+    "variation": null,
+    "name": "state",
+    "memberof": "src/views/edit.js~EditForm",
+    "longname": "src/views/edit.js~EditForm#state",
+    "access": null,
+    "description": null,
+    "lineNumber": 12,
+    "undocument": true,
+    "type": {
+      "types": [
+        "*"
+      ]
+    }
+  },
+  {
+    "__docId__": 41,
+    "kind": "method",
+    "static": false,
+    "variation": null,
+    "name": "connect",
+    "memberof": "src/views/edit.js~EditForm",
+    "longname": "src/views/edit.js~EditForm#connect",
+    "access": null,
+    "description": null,
+    "lineNumber": 20,
+    "undocument": true,
+    "params": [],
+    "generator": false
+  },
+  {
+    "__docId__": 42,
+    "kind": "method",
+    "static": false,
+    "variation": null,
+    "name": "componentDidMount",
+    "memberof": "src/views/edit.js~EditForm",
+    "longname": "src/views/edit.js~EditForm#componentDidMount",
+    "access": null,
+    "description": null,
+    "lineNumber": 23,
+    "undocument": true,
+    "params": [],
+    "generator": false
+  },
+  {
+    "__docId__": 43,
+    "kind": "method",
+    "static": false,
+    "variation": null,
+    "name": "onSubscribe",
+    "memberof": "src/views/edit.js~EditForm",
+    "longname": "src/views/edit.js~EditForm#onSubscribe",
+    "access": null,
+    "description": null,
+    "lineNumber": 28,
+    "undocument": true,
+    "params": [
+      {
+        "name": "item",
+        "types": [
+          "*"
+        ]
+      }
+    ],
+    "generator": false
+  },
+  {
+    "__docId__": 44,
+    "kind": "method",
+    "static": false,
+    "variation": null,
+    "name": "renderRepos",
+    "memberof": "src/views/edit.js~EditForm",
+    "longname": "src/views/edit.js~EditForm#renderRepos",
+    "access": null,
+    "description": null,
+    "lineNumber": 34,
+    "undocument": true,
+    "params": [],
+    "return": {
+      "types": [
+        "*"
+      ]
+    },
+    "generator": false
+  },
+  {
+    "__docId__": 45,
+    "kind": "method",
+    "static": false,
+    "variation": null,
+    "name": "getRepos",
+    "memberof": "src/views/edit.js~EditForm",
+    "longname": "src/views/edit.js~EditForm#getRepos",
+    "access": null,
+    "description": null,
+    "lineNumber": 44,
+    "undocument": true,
+    "params": [],
+    "generator": false
+  },
+  {
+    "__docId__": 46,
+    "kind": "method",
+    "static": false,
+    "variation": null,
+    "name": "getConnectView",
+    "memberof": "src/views/edit.js~EditForm",
+    "longname": "src/views/edit.js~EditForm#getConnectView",
+    "access": null,
+    "description": null,
+    "lineNumber": 47,
+    "undocument": true,
+    "params": [],
+    "return": {
+      "types": [
+        "*"
+      ]
+    },
+    "generator": false
+  },
+  {
+    "__docId__": 47,
+    "kind": "method",
+    "static": false,
+    "variation": null,
+    "name": "getEditView",
+    "memberof": "src/views/edit.js~EditForm",
+    "longname": "src/views/edit.js~EditForm#getEditView",
+    "access": null,
+    "description": null,
+    "lineNumber": 62,
+    "undocument": true,
+    "params": [],
+    "return": {
+      "types": [
+        "*"
+      ]
+    },
+    "generator": false
+  },
+  {
+    "__docId__": 48,
+    "kind": "method",
+    "static": false,
+    "variation": null,
+    "name": "render",
+    "memberof": "src/views/edit.js~EditForm",
+    "longname": "src/views/edit.js~EditForm#render",
+    "access": null,
+    "description": null,
+    "lineNumber": 93,
+    "undocument": true,
+    "params": [],
+    "return": {
+      "types": [
+        "*"
+      ]
+    },
+    "generator": false
+  },
+  {
+    "__docId__": 50,
     "kind": "external",
     "static": true,
     "variation": null,
@@ -588,7 +1052,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 27,
+    "__docId__": 51,
     "kind": "external",
     "static": true,
     "variation": null,
@@ -601,7 +1065,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 28,
+    "__docId__": 52,
     "kind": "external",
     "static": true,
     "variation": null,
@@ -614,7 +1078,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 29,
+    "__docId__": 53,
     "kind": "external",
     "static": true,
     "variation": null,
@@ -627,7 +1091,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 30,
+    "__docId__": 54,
     "kind": "external",
     "static": true,
     "variation": null,
@@ -640,7 +1104,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 31,
+    "__docId__": 55,
     "kind": "external",
     "static": true,
     "variation": null,
@@ -653,7 +1117,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 32,
+    "__docId__": 56,
     "kind": "external",
     "static": true,
     "variation": null,
@@ -666,7 +1130,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 33,
+    "__docId__": 57,
     "kind": "external",
     "static": true,
     "variation": null,
@@ -679,7 +1143,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 34,
+    "__docId__": 58,
     "kind": "external",
     "static": true,
     "variation": null,
@@ -692,7 +1156,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 35,
+    "__docId__": 59,
     "kind": "external",
     "static": true,
     "variation": null,
@@ -705,7 +1169,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 36,
+    "__docId__": 60,
     "kind": "external",
     "static": true,
     "variation": null,
@@ -718,7 +1182,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 37,
+    "__docId__": 61,
     "kind": "external",
     "static": true,
     "variation": null,
@@ -731,7 +1195,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 38,
+    "__docId__": 62,
     "kind": "external",
     "static": true,
     "variation": null,
@@ -744,7 +1208,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 39,
+    "__docId__": 63,
     "kind": "external",
     "static": true,
     "variation": null,
@@ -757,7 +1221,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 40,
+    "__docId__": 64,
     "kind": "external",
     "static": true,
     "variation": null,
@@ -770,7 +1234,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 41,
+    "__docId__": 65,
     "kind": "external",
     "static": true,
     "variation": null,
@@ -783,7 +1247,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 42,
+    "__docId__": 66,
     "kind": "external",
     "static": true,
     "variation": null,
@@ -796,7 +1260,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 43,
+    "__docId__": 67,
     "kind": "external",
     "static": true,
     "variation": null,
@@ -809,7 +1273,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 44,
+    "__docId__": 68,
     "kind": "external",
     "static": true,
     "variation": null,
@@ -822,7 +1286,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 45,
+    "__docId__": 69,
     "kind": "external",
     "static": true,
     "variation": null,
@@ -835,7 +1299,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 46,
+    "__docId__": 70,
     "kind": "external",
     "static": true,
     "variation": null,
@@ -848,7 +1312,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 47,
+    "__docId__": 71,
     "kind": "external",
     "static": true,
     "variation": null,
@@ -861,7 +1325,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 48,
+    "__docId__": 72,
     "kind": "external",
     "static": true,
     "variation": null,
@@ -874,7 +1338,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 49,
+    "__docId__": 73,
     "kind": "external",
     "static": true,
     "variation": null,
@@ -887,7 +1351,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 50,
+    "__docId__": 74,
     "kind": "external",
     "static": true,
     "variation": null,
@@ -900,7 +1364,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 51,
+    "__docId__": 75,
     "kind": "external",
     "static": true,
     "variation": null,
@@ -913,7 +1377,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 52,
+    "__docId__": 76,
     "kind": "external",
     "static": true,
     "variation": null,
@@ -926,7 +1390,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 53,
+    "__docId__": 77,
     "kind": "external",
     "static": true,
     "variation": null,
@@ -939,7 +1403,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 54,
+    "__docId__": 78,
     "kind": "external",
     "static": true,
     "variation": null,
@@ -952,7 +1416,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 55,
+    "__docId__": 79,
     "kind": "external",
     "static": true,
     "variation": null,
@@ -965,7 +1429,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 56,
+    "__docId__": 80,
     "kind": "external",
     "static": true,
     "variation": null,
@@ -978,7 +1442,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 57,
+    "__docId__": 81,
     "kind": "external",
     "static": true,
     "variation": null,
@@ -991,7 +1455,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 58,
+    "__docId__": 82,
     "kind": "external",
     "static": true,
     "variation": null,
@@ -1004,7 +1468,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 59,
+    "__docId__": 83,
     "kind": "external",
     "static": true,
     "variation": null,
@@ -1017,7 +1481,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 60,
+    "__docId__": 84,
     "kind": "external",
     "static": true,
     "variation": null,
@@ -1030,7 +1494,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 61,
+    "__docId__": 85,
     "kind": "external",
     "static": true,
     "variation": null,
@@ -1043,7 +1507,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 62,
+    "__docId__": 86,
     "kind": "external",
     "static": true,
     "variation": null,
@@ -1056,7 +1520,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 63,
+    "__docId__": 87,
     "kind": "external",
     "static": true,
     "variation": null,
@@ -1069,7 +1533,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 64,
+    "__docId__": 88,
     "kind": "external",
     "static": true,
     "variation": null,
@@ -1082,7 +1546,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 65,
+    "__docId__": 89,
     "kind": "external",
     "static": true,
     "variation": null,
@@ -1095,7 +1559,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 66,
+    "__docId__": 90,
     "kind": "external",
     "static": true,
     "variation": null,
@@ -1108,7 +1572,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 67,
+    "__docId__": 91,
     "kind": "external",
     "static": true,
     "variation": null,
@@ -1121,7 +1585,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 68,
+    "__docId__": 92,
     "kind": "external",
     "static": true,
     "variation": null,
@@ -1134,7 +1598,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 69,
+    "__docId__": 93,
     "kind": "external",
     "static": true,
     "variation": null,
@@ -1147,7 +1611,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 70,
+    "__docId__": 94,
     "kind": "external",
     "static": true,
     "variation": null,
@@ -1160,7 +1624,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 71,
+    "__docId__": 95,
     "kind": "external",
     "static": true,
     "variation": null,
@@ -1173,7 +1637,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 72,
+    "__docId__": 96,
     "kind": "external",
     "static": true,
     "variation": null,
@@ -1186,7 +1650,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 74,
+    "__docId__": 98,
     "kind": "external",
     "static": true,
     "variation": null,
@@ -1199,7 +1663,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 75,
+    "__docId__": 99,
     "kind": "external",
     "static": true,
     "variation": null,
@@ -1212,7 +1676,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 76,
+    "__docId__": 100,
     "kind": "external",
     "static": true,
     "variation": null,
@@ -1225,7 +1689,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 77,
+    "__docId__": 101,
     "kind": "external",
     "static": true,
     "variation": null,
@@ -1238,7 +1702,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 78,
+    "__docId__": 102,
     "kind": "external",
     "static": true,
     "variation": null,
@@ -1251,7 +1715,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 79,
+    "__docId__": 103,
     "kind": "external",
     "static": true,
     "variation": null,
@@ -1264,7 +1728,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 80,
+    "__docId__": 104,
     "kind": "external",
     "static": true,
     "variation": null,
@@ -1277,7 +1741,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 81,
+    "__docId__": 105,
     "kind": "external",
     "static": true,
     "variation": null,
@@ -1290,7 +1754,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 82,
+    "__docId__": 106,
     "kind": "testFile",
     "static": true,
     "variation": null,
@@ -1303,7 +1767,7 @@
     "content": "import GitHubConnector from '../../lib/connector';\nimport sinon from 'sinon';\nimport config from 'config';\nimport {\n  expect\n}\nfrom 'chai';\nimport Nightmare from 'nightmare';\nimport url from 'url';\nimport os from 'os';\n\nlet osType = os.type();\ndescribe('authorization steps', function () {\n  let connector;\n  let clientId = config.get('clientId');\n  let clientSecret = config.get('clientSecret');\n  let nightmare;\n\n  before(function () {\n    if (osType !== 'Linux') {\n      nightmare = Nightmare();\n    }\n    connector = new GitHubConnector({\n      clientId,\n      clientSecret\n    });\n\n  });\n  after(function () {\n    if (osType !== 'Linux') {\n      return nightmare.end();\n    }\n  })\n  describe('on first bounce', () => {\n    let bounce;\n    before(function () {\n\n      bounce = {\n        get: function () {\n          return undefined;\n        },\n        delete: function () {\n          return Promise.resolve(null);\n        },\n        set: function () {\n          console.log('set', arguments);\n          return Promise.resolve(null);\n        },\n        redirect: function () {\n          console.log('redirect', arguments);\n          return Promise.resolve(null);\n        },\n        done: function () {\n          console.log('done', arguments);\n          return Promise.resolve(null);\n        }\n      };\n      sinon.spy(bounce, 'get');\n      sinon.spy(bounce, 'set');\n      sinon.spy(bounce, 'redirect');\n      return connector.receiveBounce(bounce);\n    });\n    it('should save state', () => {\n      return expect(bounce.set).to.have.been.calledWith('state');\n    });\n    it('should save current step', () => {\n      return expect(bounce.set).to.have.been.calledWith('currentStep', 'authorization');\n    });\n    it('should receive a redirect', () => {\n      return expect(bounce.redirect).to.have.been.calledWith(`https://github.com/login/oauth/authorize?redirect_uri=https%3A%2F%2Fbouncer.hoist.test%2Fbounce&state=${bounce.set.getCall(0).args[1]}&scope=user%2Crepo%2Cadmin%3Arepo_hook%2Cnotifications&client_id=${clientId}`);\n    });\n  });\n  describe('on return from github', function () {\n    let bounce;\n    this.timeout(50000);\n    let uri;\n\n    before(function () {\n      if (osType === 'Linux') {\n        this.skip();\n      }\n      bounce = {\n        store: {},\n        get: function (key) {\n          return this.store[key];\n        },\n        delete: function (key) {\n          delete this.store[key];\n          return Promise.resolve(null);\n        },\n        set: function (key, value) {\n          this.store[key] = value;\n          return Promise.resolve(null);\n        },\n        redirect: function () {\n          console.log('redirect', arguments);\n          return Promise.resolve(null);\n        },\n        done: function () {\n          console.log('done', arguments);\n          return Promise.resolve(null);\n        }\n      };\n      sinon.spy(bounce, 'get');\n      sinon.spy(bounce, 'set');\n      sinon.spy(bounce, 'redirect');\n      return Promise.resolve(connector.receiveBounce(bounce))\n        .then(function () {\n          let authorizeUri = bounce.redirect.getCall(0).args[0];\n          return Promise.resolve(nightmare.goto(authorizeUri));\n        }).then(() => {\n          return Promise.resolve(nightmare.type('#login_field', config.get('username'))\n            .type('#password', config.get('password'))\n            .click('[name=\"commit\"]'));\n        }).then(() => {\n          return Promise.resolve(nightmare.wait('#message').url());\n        }).then((u) => {\n          uri = url.parse(u, true);\n          bounce.query = uri.query;\n        }).then(() => {\n          return connector.receiveBounce(bounce);\n        });\n\n    });\n    it('should save state', () => {\n      //console.log(bounce.store['AccessToken']);\n      return expect(bounce.store['AccessToken']).to.exist;\n    });\n  })\n});\n"
   },
   {
-    "__docId__": 83,
+    "__docId__": 107,
     "kind": "testDescribe",
     "static": true,
     "variation": null,
@@ -1317,7 +1781,7 @@
     "lineNumber": 13
   },
   {
-    "__docId__": 84,
+    "__docId__": 108,
     "kind": "testDescribe",
     "static": true,
     "variation": null,
@@ -1331,7 +1795,7 @@
     "lineNumber": 34
   },
   {
-    "__docId__": 85,
+    "__docId__": 109,
     "kind": "testIt",
     "static": true,
     "variation": null,
@@ -1345,7 +1809,7 @@
     "lineNumber": 63
   },
   {
-    "__docId__": 86,
+    "__docId__": 110,
     "kind": "testIt",
     "static": true,
     "variation": null,
@@ -1359,7 +1823,7 @@
     "lineNumber": 66
   },
   {
-    "__docId__": 87,
+    "__docId__": 111,
     "kind": "testIt",
     "static": true,
     "variation": null,
@@ -1373,7 +1837,7 @@
     "lineNumber": 69
   },
   {
-    "__docId__": 88,
+    "__docId__": 112,
     "kind": "testDescribe",
     "static": true,
     "variation": null,
@@ -1387,7 +1851,7 @@
     "lineNumber": 73
   },
   {
-    "__docId__": 89,
+    "__docId__": 113,
     "kind": "testIt",
     "static": true,
     "variation": null,
@@ -1401,7 +1865,7 @@
     "lineNumber": 125
   },
   {
-    "__docId__": 90,
+    "__docId__": 114,
     "kind": "testFile",
     "static": true,
     "variation": null,
@@ -1414,7 +1878,7 @@
     "content": "import GitHubConnector from '../../lib/connector';\nimport config from 'config';\nimport {\n  expect\n}\nfrom 'chai';\ndescribe('issues api', function () {\n  this.timeout(5000);\n  describe('post issue', () => {\n    let authorization;\n    let _result;\n    let connector;\n    let title = \"Issue created by Unit Test: \" + new Date();\n    before(() => {\n      authorization = {\n        store: {},\n        get: function (key) {\n          return this.store[key];\n        },\n        delete: function (key) {\n          delete this.store[key];\n          return Promise.resolve(null);\n        },\n        set: function (key, value) {\n          this.store[key] = value;\n          return Promise.resolve(null);\n        },\n        redirect: function () {\n          console.log('redirect', arguments);\n          return Promise.resolve(null);\n        },\n        done: function () {\n          console.log('done', arguments);\n          return Promise.resolve(null);\n        }\n      };\n      connector = new GitHubConnector({\n        clientId: config.get('clientId'),\n        clientSecret: config.get('clientSecret')\n      });\n      authorization.set('AccessToken', config.get('accessToken'));\n      connector.authorize(authorization)\n      return connector.post('/repos/hoist-bot/test-repo/issues', {\n          \"title\": title,\n          \"body\": \"This is a test issue from the Hoist connector unit tests\"\n        })\n        .then((result) => {\n          _result = result;\n        });\n\n    });\n    it('returns correct response', () => {\n      return expect(_result.title).to.eql(title);\n    });\n  });\n  describe('get issues', () => {\n    let authorization;\n    let _result;\n    let connector;\n    before(() => {\n      authorization = {\n        store: {},\n        get: function (key) {\n          return this.store[key];\n        },\n        delete: function (key) {\n          delete this.store[key];\n          return Promise.resolve(null);\n        },\n        set: function (key, value) {\n          this.store[key] = value;\n          return Promise.resolve(null);\n        },\n        redirect: function () {\n          console.log('redirect', arguments);\n          return Promise.resolve(null);\n        },\n        done: function () {\n          console.log('done', arguments);\n          return Promise.resolve(null);\n        }\n      };\n      connector = new GitHubConnector({\n        clientId: config.get('clientId'),\n        clientSecret: config.get('clientSecret')\n      });\n      authorization.set('AccessToken', config.get('accessToken'));\n      connector.authorize(authorization)\n      return connector.get('/repos/hoist-bot/test-repo/issues')\n        .then((result) => {\n          _result = result;\n        });\n\n    });\n    it('returns correct response', () => {\n      return expect(_result.length).to.be.greaterThan(0);\n    });\n  });\n  describe('patch issue', () => {\n    let authorization;\n    let _result;\n    let connector;\n    before(() => {\n      authorization = {\n        store: {},\n        get: function (key) {\n          return this.store[key];\n        },\n        delete: function (key) {\n          delete this.store[key];\n          return Promise.resolve(null);\n        },\n        set: function (key, value) {\n          this.store[key] = value;\n          return Promise.resolve(null);\n        },\n        redirect: function () {\n          console.log('redirect', arguments);\n          return Promise.resolve(null);\n        },\n        done: function () {\n          console.log('done', arguments);\n          return Promise.resolve(null);\n        }\n      };\n      connector = new GitHubConnector({\n        clientId: config.get('clientId'),\n        clientSecret: config.get('clientSecret')\n      });\n      authorization.set('AccessToken', config.get('accessToken'));\n      connector.authorize(authorization)\n\n      return connector.get('/repos/hoist-bot/test-repo/issues?state=open')\n        .then((r) => {\n          let uri = `/repos/hoist-bot/test-repo/issues/${r[0].number}`\n          return connector.patch(uri, {\n              \"state\": \"closed\"\n            })\n            .then((result) => {\n              _result = result;\n            }).catch((err) => {\n              console.log(err);\n            });\n        });\n\n\n    });\n    it('returns correct response', () => {\n      return expect(_result.state).to.eql('closed');\n    });\n  });\n});\n"
   },
   {
-    "__docId__": 91,
+    "__docId__": 115,
     "kind": "testDescribe",
     "static": true,
     "variation": null,
@@ -1428,7 +1892,7 @@
     "lineNumber": 7
   },
   {
-    "__docId__": 92,
+    "__docId__": 116,
     "kind": "testDescribe",
     "static": true,
     "variation": null,
@@ -1442,7 +1906,7 @@
     "lineNumber": 9
   },
   {
-    "__docId__": 93,
+    "__docId__": 117,
     "kind": "testIt",
     "static": true,
     "variation": null,
@@ -1456,7 +1920,7 @@
     "lineNumber": 52
   },
   {
-    "__docId__": 94,
+    "__docId__": 118,
     "kind": "testDescribe",
     "static": true,
     "variation": null,
@@ -1470,7 +1934,7 @@
     "lineNumber": 56
   },
   {
-    "__docId__": 95,
+    "__docId__": 119,
     "kind": "testIt",
     "static": true,
     "variation": null,
@@ -1484,7 +1948,7 @@
     "lineNumber": 95
   },
   {
-    "__docId__": 96,
+    "__docId__": 120,
     "kind": "testDescribe",
     "static": true,
     "variation": null,
@@ -1498,7 +1962,7 @@
     "lineNumber": 99
   },
   {
-    "__docId__": 97,
+    "__docId__": 121,
     "kind": "testIt",
     "static": true,
     "variation": null,
@@ -1512,7 +1976,7 @@
     "lineNumber": 148
   },
   {
-    "__docId__": 98,
+    "__docId__": 122,
     "kind": "testFile",
     "static": true,
     "variation": null,
@@ -1525,7 +1989,7 @@
     "content": "import GitHubConnector from '../../lib/connector';\nimport config from 'config';\nimport {\n  expect\n}\nfrom 'chai';\ndescribe('get repositories', function () {\n  this.timeout(5000);\n  let authorization;\n  let _result;\n  let connector;\n  before(() => {\n    authorization = {\n      store: {},\n      get: function (key) {\n        return this.store[key];\n      },\n      delete: function (key) {\n        delete this.store[key];\n        return Promise.resolve(null);\n      },\n      set: function (key, value) {\n        this.store[key] = value;\n        return Promise.resolve(null);\n      },\n      redirect: function () {\n        console.log('redirect', arguments);\n        return Promise.resolve(null);\n      },\n      done: function () {\n        console.log('done', arguments);\n        return Promise.resolve(null);\n      }\n    };\n    connector = new GitHubConnector({\n      clientId: config.get('clientId'),\n      clientSecret: config.get('clientSecret')\n    });\n    authorization.set('AccessToken', config.get('accessToken'));\n    connector.authorize(authorization)\n    return connector.get('/user/repos?per_page=10')\n      .then((result) => {\n        _result = result;\n      });\n\n  });\n  it('returns public and private repositories', () => {\n    return expect(_result.map((repo) => repo.name)).to.contain('api.hoi.io');\n  });\n});\n"
   },
   {
-    "__docId__": 99,
+    "__docId__": 123,
     "kind": "testDescribe",
     "static": true,
     "variation": null,
@@ -1539,7 +2003,7 @@
     "lineNumber": 7
   },
   {
-    "__docId__": 100,
+    "__docId__": 124,
     "kind": "testIt",
     "static": true,
     "variation": null,
@@ -1553,7 +2017,7 @@
     "lineNumber": 47
   },
   {
-    "__docId__": 101,
+    "__docId__": 125,
     "kind": "testFile",
     "static": true,
     "variation": null,
@@ -1566,7 +2030,7 @@
     "content": "import GitHubConnector from '../../lib/connector';\nimport config from 'config';\nimport {\n  expect\n}\nfrom 'chai';\ndescribe('webhook api', function () {\n  this.timeout(5000);\n  describe('create a webhook', () => {\n    let authorization;\n    let _result;\n    let connector;\n    let title = \"Issue created by Unit Test: \" + new Date();\n    before(() => {\n      authorization = {\n        store: {},\n        get: function (key) {\n          return this.store[key];\n        },\n        delete: function (key) {\n          delete this.store[key];\n          return Promise.resolve(null);\n        },\n        set: function (key, value) {\n          this.store[key] = value;\n          return Promise.resolve(null);\n        },\n        redirect: function () {\n          console.log('redirect', arguments);\n          return Promise.resolve(null);\n        },\n        done: function () {\n          console.log('done', arguments);\n          return Promise.resolve(null);\n        }\n      };\n      connector = new GitHubConnector({\n        clientId: config.get('clientId'),\n        clientSecret: config.get('clientSecret')\n      });\n      authorization.set('AccessToken', config.get('accessToken'));\n      connector.authorize(authorization)\n      return connector.post('/repos/hoist-bot/test-repo/hooks', {\n          \"name\": 'web',\n          \"config\": {\n            \"url\": \"https://endpoint.hoi.test/test-hook-\" + Math.random() * 2000,\n            \"content_type\": \"json\"\n          },\n          \"events\": [\n            \"*\"\n          ]\n        })\n        .then((result) => {\n          _result = result;\n        });\n\n    });\n    it('creates the webhook', () => {\n      return expect(_result.name).to.eql('web');\n    });\n  });\n  describe('list webhook', () => {\n    let authorization;\n    let _result;\n    let connector;\n    let title = \"Issue created by Unit Test: \" + new Date();\n    before(() => {\n      authorization = {\n        store: {},\n        get: function (key) {\n          return this.store[key];\n        },\n        delete: function (key) {\n          delete this.store[key];\n          return Promise.resolve(null);\n        },\n        set: function (key, value) {\n          this.store[key] = value;\n          return Promise.resolve(null);\n        },\n        redirect: function () {\n          console.log('redirect', arguments);\n          return Promise.resolve(null);\n        },\n        done: function () {\n          console.log('done', arguments);\n          return Promise.resolve(null);\n        }\n      };\n      connector = new GitHubConnector({\n        clientId: config.get('clientId'),\n        clientSecret: config.get('clientSecret')\n      });\n      authorization.set('AccessToken', config.get('accessToken'));\n      connector.authorize(authorization)\n      return connector.get('/repos/hoist-bot/test-repo/hooks')\n        .then((result) => {\n          _result = result;\n        });\n\n    });\n    it('returns the webhook', () => {\n      return expect(_result.length).to.be.greaterThan(0);\n    });\n  });\n  describe('delete webhook', () => {\n    let authorization;\n    let _result;\n    let connector;\n    let title = \"Issue created by Unit Test: \" + new Date();\n    before(() => {\n      authorization = {\n        store: {},\n        get: function (key) {\n          return this.store[key];\n        },\n        delete: function (key) {\n          delete this.store[key];\n          return Promise.resolve(null);\n        },\n        set: function (key, value) {\n          this.store[key] = value;\n          return Promise.resolve(null);\n        },\n        redirect: function () {\n          console.log('redirect', arguments);\n          return Promise.resolve(null);\n        },\n        done: function () {\n          console.log('done', arguments);\n          return Promise.resolve(null);\n        }\n      };\n      connector = new GitHubConnector({\n        clientId: config.get('clientId'),\n        clientSecret: config.get('clientSecret')\n      });\n      authorization.set('AccessToken', config.get('accessToken'));\n      connector.authorize(authorization)\n      return connector.get('/repos/hoist-bot/test-repo/hooks')\n        .then((result) => {\n          var uri = `/repos/hoist-bot/test-repo/hooks/${result[0].id}`\n          return connector.delete(uri);\n        }).then((result) => {\n          _result = result;\n        });\n\n    });\n    it('returns the webhook', () => {\n      return expect(_result).to.eql('');\n    });\n  });\n});\n"
   },
   {
-    "__docId__": 102,
+    "__docId__": 126,
     "kind": "testDescribe",
     "static": true,
     "variation": null,
@@ -1580,7 +2044,7 @@
     "lineNumber": 7
   },
   {
-    "__docId__": 103,
+    "__docId__": 127,
     "kind": "testDescribe",
     "static": true,
     "variation": null,
@@ -1594,7 +2058,7 @@
     "lineNumber": 9
   },
   {
-    "__docId__": 104,
+    "__docId__": 128,
     "kind": "testIt",
     "static": true,
     "variation": null,
@@ -1608,7 +2072,7 @@
     "lineNumber": 58
   },
   {
-    "__docId__": 105,
+    "__docId__": 129,
     "kind": "testDescribe",
     "static": true,
     "variation": null,
@@ -1622,7 +2086,7 @@
     "lineNumber": 62
   },
   {
-    "__docId__": 106,
+    "__docId__": 130,
     "kind": "testIt",
     "static": true,
     "variation": null,
@@ -1636,7 +2100,7 @@
     "lineNumber": 102
   },
   {
-    "__docId__": 107,
+    "__docId__": 131,
     "kind": "testDescribe",
     "static": true,
     "variation": null,
@@ -1650,7 +2114,7 @@
     "lineNumber": 106
   },
   {
-    "__docId__": 108,
+    "__docId__": 132,
     "kind": "testIt",
     "static": true,
     "variation": null,
@@ -1664,7 +2128,7 @@
     "lineNumber": 149
   },
   {
-    "__docId__": 109,
+    "__docId__": 133,
     "kind": "testFile",
     "static": true,
     "variation": null,
@@ -1677,7 +2141,7 @@
     "content": "import GitHubConnector from '../../lib/connector';\nimport {\n  expect\n}\nfrom 'chai';\ndescribe('default settings', () => {\n  let connector;\n  it('exposes defaultSettings method', () => {\n    return expect(GitHubConnector.defaultSettings).to.exist;\n  });\n})\n"
   },
   {
-    "__docId__": 110,
+    "__docId__": 134,
     "kind": "testDescribe",
     "static": true,
     "variation": null,
@@ -1691,7 +2155,7 @@
     "lineNumber": 6
   },
   {
-    "__docId__": 111,
+    "__docId__": 135,
     "kind": "testIt",
     "static": true,
     "variation": null,

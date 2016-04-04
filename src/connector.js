@@ -57,6 +57,7 @@ export default class GitHubConnector extends OAuth2ConnectorBase {
   get(path) {
     let uri = `${apiBaseUri}${path}`;
     return this._performRequest('GET', uri).then((result) => {
+      console.log("GOTS A RESULT", result);
       return JSON.parse(result);
     });
   }

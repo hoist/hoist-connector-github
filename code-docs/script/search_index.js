@@ -1,8 +1,20 @@
 window.esdocSearchIndex = [
   [
+    "hoist-connector-github/src/views/edit.js~editform",
+    "class/src/views/edit.js~EditForm.html",
+    "<span>EditForm</span> <span class=\"search-result-import-path\">hoist-connector-github/src/views/edit.js</span>",
+    "class"
+  ],
+  [
     "hoist-connector-github/src/connector.js~githubconnector",
     "class/src/connector.js~GitHubConnector.html",
     "<span>GitHubConnector</span> <span class=\"search-result-import-path\">hoist-connector-github/src/connector.js</span>",
+    "class"
+  ],
+  [
+    "hoist-connector-github/src/hooks.js~githubconnectorhooks",
+    "class/src/hooks.js~GithubConnectorHooks.html",
+    "<span>GithubConnectorHooks</span> <span class=\"search-result-import-path\">hoist-connector-github/src/hooks.js</span>",
     "class"
   ],
   [
@@ -498,10 +510,106 @@ window.esdocSearchIndex = [
     "external"
   ],
   [
+    "src/hooks.js",
+    "file/src/hooks.js.html",
+    "src/hooks.js",
+    "file"
+  ],
+  [
+    "src/hooks.js~githubconnectorhooks#constructor",
+    "class/src/hooks.js~GithubConnectorHooks.html#instance-constructor-constructor",
+    "src/hooks.js~GithubConnectorHooks#constructor",
+    "method"
+  ],
+  [
+    "src/hooks.js~githubconnectorhooks#getrepositories",
+    "class/src/hooks.js~GithubConnectorHooks.html#instance-method-getRepositories",
+    "src/hooks.js~GithubConnectorHooks#getRepositories",
+    "method"
+  ],
+  [
+    "src/hooks.js~githubconnectorhooks#stop",
+    "class/src/hooks.js~GithubConnectorHooks.html#instance-method-stop",
+    "src/hooks.js~GithubConnectorHooks#stop",
+    "method"
+  ],
+  [
+    "src/hooks.js~githubconnectorhooks#watch",
+    "class/src/hooks.js~GithubConnectorHooks.html#instance-method-watch",
+    "src/hooks.js~GithubConnectorHooks#watch",
+    "method"
+  ],
+  [
     "src/poll.js",
     "file/src/poll.js.html",
     "src/poll.js",
     "file"
+  ],
+  [
+    "src/views/edit.js",
+    "file/src/views/edit.js.html",
+    "src/views/edit.js",
+    "file"
+  ],
+  [
+    "src/views/edit.js~editform#componentdidmount",
+    "class/src/views/edit.js~EditForm.html#instance-method-componentDidMount",
+    "src/views/edit.js~EditForm#componentDidMount",
+    "method"
+  ],
+  [
+    "src/views/edit.js~editform#connect",
+    "class/src/views/edit.js~EditForm.html#instance-method-connect",
+    "src/views/edit.js~EditForm#connect",
+    "method"
+  ],
+  [
+    "src/views/edit.js~editform#constructor",
+    "class/src/views/edit.js~EditForm.html#instance-constructor-constructor",
+    "src/views/edit.js~EditForm#constructor",
+    "method"
+  ],
+  [
+    "src/views/edit.js~editform#getconnectview",
+    "class/src/views/edit.js~EditForm.html#instance-method-getConnectView",
+    "src/views/edit.js~EditForm#getConnectView",
+    "method"
+  ],
+  [
+    "src/views/edit.js~editform#geteditview",
+    "class/src/views/edit.js~EditForm.html#instance-method-getEditView",
+    "src/views/edit.js~EditForm#getEditView",
+    "method"
+  ],
+  [
+    "src/views/edit.js~editform#getrepos",
+    "class/src/views/edit.js~EditForm.html#instance-method-getRepos",
+    "src/views/edit.js~EditForm#getRepos",
+    "method"
+  ],
+  [
+    "src/views/edit.js~editform#onsubscribe",
+    "class/src/views/edit.js~EditForm.html#instance-method-onSubscribe",
+    "src/views/edit.js~EditForm#onSubscribe",
+    "method"
+  ],
+  [
+    "src/views/edit.js~editform#render",
+    "class/src/views/edit.js~EditForm.html#instance-method-render",
+    "src/views/edit.js~EditForm#render",
+    "method"
+  ],
+  [
+    "src/views/edit.js~editform#renderrepos",
+    "class/src/views/edit.js~EditForm.html#instance-method-renderRepos",
+    "src/views/edit.js~EditForm#renderRepos",
+    "method"
+  ],
+  [
+    "src/views/edit.js~editform#state",
+    "class/src/views/edit.js~EditForm.html#instance-member-state",
+    "src/views/edit.js~EditForm#state",
+    "member"
   ],
   [
     "tests/integration_tests/auth_tests.js",

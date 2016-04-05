@@ -83,8 +83,8 @@ class EditForm extends React.Component {
             title="Check the boxes of the events you want to subscribe to."
             subTitle="Checking a box will automatically subscribe you to that event." />
           <C.CheckboxGrid
-            items={['github:repo:update', 'github:new:commit']}
-            checked={['github:new:commit']}
+            items={this.props.connectorInstance.events}
+            checked={this.props.connectorInstance.subscribedEvents}
             onChange={this.onSubscribe} />
         </C.Panel>
       </C.Page>
